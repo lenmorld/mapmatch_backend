@@ -136,10 +136,29 @@ router.post('/search', function(req, res) {
 
         // var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);});
 
-          var nearbyUsers: Object[] = await Promise.all(destUsers.map(async (d):
-            Promise<Object> => {await isNearby(d, source);
-                return d;
-            } ));
+        var destPromises = {destUsers.map((d) => {
+          return new Promise((resolve, reject) => {
+            resolve(isNearby(d, source));
+          });
+        })}
+
+
+
+        // var destPromises = destUsers.map((d) => {
+        //   return new Promise((resolve, reject) => {
+        //     isNearby(d, source)
+        //   })
+        // })
+
+        Promise.all(destPromises).then(values => {
+          console.log(values);
+        });
+
+
+          // var nearbyUsers: Object[] = await Promise.all(destUsers.map(async (d):
+          //   Promise<Object> => {await isNearby(d, source);
+          //       return d;
+          //   } ));
 
 
 
