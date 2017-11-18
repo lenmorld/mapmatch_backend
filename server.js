@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
-var cors = require('cors')
+var cors = require('cors');
 
 app.use(cors());
 
