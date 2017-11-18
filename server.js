@@ -1,15 +1,18 @@
-var URL = 'mongodb://localhost:27017/dummyDB';
+var dbName = 'mapmatch';
+var URL = 'mongodb://localhost:27017/' + dbName;
 var express = require(express), app = express();
 
 var db = require('./db');
 
+// connect to Mongo on server start
 db.connect(URL, function(err) {
   if (err) {
     console.log('Unable to connect to Mongo');
     process.exit(1);
   } else {
-    app.listen(3000, function() {
-
+    const port = 9000;
+    app.listen(port, function() {
+      console.log('Listening on port ', port);
     })
   }
-})
+});
