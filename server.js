@@ -4,6 +4,9 @@ var express = require('express'), app = express();
 
 var db = require('./db');
 
+app.use('/users', require('./controllers/user'));
+
+
 // connect to Mongo on server start
 db.connect(URL, function(err) {
   if (err) {
