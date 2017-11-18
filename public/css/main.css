@@ -97,7 +97,12 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-
+   #map {
+    height: 100% !important;
+    position: relative;
+    padding-bottom: 57%;
+    width: 100%;
+   }
 
 
 
