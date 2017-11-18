@@ -25,7 +25,7 @@ router.post('/signup', function(req, res) {
     if (err)
       res.json({"message": "Error"});
     else
-      res.json({"message": "Success", "datasent": req.body});
+      res.json({"message": "Success", "datasent": res.body});
   });
 
 });
