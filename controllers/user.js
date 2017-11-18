@@ -34,7 +34,7 @@ router.post('/update', function(req, res) {
   // email, lat, long
   if (req.body) {
     // find user with given email
-    User.findByOneAndUpdate({ email: req.body.email },
+    User.findOneAndUpdate({ email: req.body.email },
       { lat: req.body.lat, long: req.body.long },
       function(err, user) {
         if(err) {
