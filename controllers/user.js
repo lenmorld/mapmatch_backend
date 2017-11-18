@@ -112,11 +112,10 @@ router.post('/search', function(req, res) {
                 "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
                 */
                 // console.log(response);
-                console.log(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0]);
                 var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
                 console.log("distance", distance);
 
-                if (distance < DISTANCE ) {
+                if (distance <= DISTANCE ) {
                   console.log("This user is nearby: ", dest);
                   nearbyUsers.push(destUser);
                 }
