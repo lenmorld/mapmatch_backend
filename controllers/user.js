@@ -105,8 +105,8 @@ router.post('/search', function(req, res) {
         for(dUser in destUsers) {
           console.log(Number(source.lat));
            var distance = geolib.getDistance(
-                {latitude: Number(source.lat), longitude: Number(source.long)},
-                {latitude: Number(dUser.lat), longitude: Number(dUser.long)}
+                {latitude: geolib.useDecimal(source.lat), longitude: geolib.useDecimal(source.long)},
+                {latitude: geolib.useDecimal(dUser.lat), longitude: geolib.useDecimal(dUser.long)}
             );
 
             console.log("distance", distance);
