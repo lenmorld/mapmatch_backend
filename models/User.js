@@ -1,5 +1,6 @@
 // grab the things we need
 var mongoose = require('mongoose');
+require('mongoose-double')(mongoose);
 var Schema = mongoose.Schema;
 var SchemaTypes = mongoose.Schema.Types;
 
