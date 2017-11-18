@@ -85,7 +85,7 @@ router.post('/search', function(req, res) {
       res.json({"message": err});
     }
 
-    if(user) {
+    if(source) {
       // get all other users
       User.find({}, function(err, users) {
         if(err) {
