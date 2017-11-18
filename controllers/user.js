@@ -34,11 +34,11 @@ router.get('/', function(req, res) {
 });
 
 function getDistance(source, dest) {
-  console.log("source:dest: ", source, dest);
   // look for people in 1km radius
   // console.log(googleMapsClient);
 
-  console.log("coords:", source.lat.value,source.long.value);
+  console.log("source coords:", source.lat.value, source.long.value);
+  console.log("dest coords:", dest.lat.value, dest.long.value);
 
   // get distance.
   googleMapsClient.distanceMatrix({
@@ -54,15 +54,12 @@ function getDistance(source, dest) {
       "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
       "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
       */
-      console.log(response);
+      // console.log(response);
       console.log(response.json.rows[0]);
 
       var distance = Number(response.json.rows[0].elements[0].distance.split(" ")[0]);    // 0.4
       // var duration = response.json.rows[0].elements[0].duration;
       return distance;
-
-      //if (distance)
-      console.log(JSON.stringify(response.json.rows[0].elements[0]));
     }
     else {
       return NaN;      // error
