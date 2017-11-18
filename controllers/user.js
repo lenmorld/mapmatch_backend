@@ -81,7 +81,7 @@ function asynchronousProcess() {
 
 
 
-function isNearby(destUsers,source,nearbyUsers, counter){
+function isNearbyRecursive(destUsers,source,nearbyUsers, counter){
   // process 1 by 1
   // return d;
 
@@ -118,7 +118,7 @@ function isNearby(destUsers,source,nearbyUsers, counter){
         ctr++;    // this one processed
 
         if (ctr < destUsers.length) {
-          isNearby(destUsers, source, nearbyUsers, ctr);
+          isNearbyRecursive(destUsers, source, nearbyUsers, ctr);
         }
         else {
           return;
