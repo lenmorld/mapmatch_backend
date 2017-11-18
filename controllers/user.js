@@ -42,10 +42,9 @@ router.post('/login', function(req, res) {
         // not found
         res.json({"auth": false});
       }
-
     });
   }
-};
+});
 
 router.post('/update', function(req, res) {
   // email, lat, long
