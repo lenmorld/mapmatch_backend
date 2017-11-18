@@ -20,7 +20,7 @@ router.get('/all', function(req, res) {
 
 router.post('/signup', function(req, res) {
   var collection = db.get().collection('users');
-  console.log(req.body);
+  // console.log(req.body);
   // console.log(res);
 
   if (req.body) {
@@ -28,7 +28,7 @@ router.post('/signup', function(req, res) {
       if (err)
         res.json({"message": "Error"});
       else {
-        res.json({"message": "Success", "datasent": res});
+        res.json({"message": "Success"});
       }
     });
   }
