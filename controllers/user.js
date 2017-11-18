@@ -138,28 +138,19 @@ router.post('/search', function(req, res) {
           }
 
           // everything turned out
+
+          console.log("users: ", nearbyUsers);
           resolve(nearbyUsers);
-
-          res.json({"users": nearbyUsers});
-          /***********************************/
-
-          // if (/* everything turned out fine */) {
-          //   resolve(function() {
-          //   });
-          // }
-          // else {
-          //   reject(Error("It broke"));
-          // }
         });
 
-        // 
-        // promise.then(function(result) {
-        //   console.log(result); // "Stuff worked!"
-        //   res.json({"users": nearbyUsers});
-        // }, function(err) {
-        //   console.log(err); // Error: "It broke"
-        //   res.json({"users": null, "message": err});
-        // });
+
+        promise.then(function(result) {
+          console.log(result); // "Stuff worked!"
+          res.json({"users": nearbyUsers});
+        }, function(err) {
+          console.log(err); // Error: "It broke"
+          res.json({"users": null, "message": err});
+        });
 
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
         // res.json({"users": nearbyUsers});
