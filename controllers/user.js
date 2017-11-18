@@ -107,7 +107,7 @@ function isNearby(dest,source){
           // nearbyUsers.push(destUser);
         }
         else {
-          return null;
+          return dest;
           // return NaN;      // error
         }
         // var duration = response.json.rows[0].elements[0].duration;
