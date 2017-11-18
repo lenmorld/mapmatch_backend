@@ -79,6 +79,9 @@ function asynchronousProcess() {
   return dUser;
 }
 
+var allProcessed = 0;
+
+
 function isNearby(dest,source){
   // process 1 by 1
   // return d;
@@ -110,6 +113,7 @@ function isNearby(dest,source){
           return null;
           // return NaN;      // error
         }
+        allProcessed++;
         // var duration = response.json.rows[0].elements[0].duration;
         // return distance;
       }
@@ -136,27 +140,31 @@ router.post('/search', function(req, res) {
 
         // var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);});
 
-        var destPromises = destUsers.map(function(d)  {
-          return new Promise((resolve, reject) => {
-            resolve(isNearby(d, source));
-          });
-        });
+        while(allProcessed < destUsers.length) {
+
+        }
+
+        // var destPromises = destUsers.map(function(d)  {
+        //   return new Promise((resolve, reject) => {
+        //     resolve(isNearby(d, source));
+        //   });
+        // });
 
         // var destPromises = destUsers.map((d) => {
         //   return new Promise((resolve, reject) => {
         //     isNearby(d, source)
         //   })
         // })
-
-        Promise.all(destPromises).then(values => {
-          console.log("resolve:", values);
-          // console.log(values);
-
-          setTimeout(function() {
-            res.json({"users": values});
-          }, 3000);
-
-        });
+        //
+        // Promise.all(destPromises).then(values => {
+        //   console.log("resolve:", values);
+        //   // console.log(values);
+        //
+        //   setTimeout(function() {
+        //     res.json({"users": values});
+        //   }, 3000);
+        //
+        // });
 
 
           // var nearbyUsers: Object[] = await Promise.all(destUsers.map(async (d):
@@ -244,7 +252,7 @@ router.post('/login', function(req, res) {
       }
 
       if(user) {
-        res.json({"auth": true});
+        res.json({"auth": true, "user": user.email});
       } else {
         // not found
         res.json({"auth": false});
