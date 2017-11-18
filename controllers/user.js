@@ -90,11 +90,11 @@ router.post('/search', function(req, res) {
         }
 
         var nearbyUsers = [];
-        for(user in users) {
-            var distance = getDistance(user.lat, user.long);
+        for(destUser in users) {
+            var distance = getDistance(user, destUser);
             if (!isNaN(distance) && distance < DISTANCE ) {
-              console.log("This user is nearby: ", user);
-              nearbyUsers.push(user);
+              console.log("This user is nearby: ", destUser);
+              nearbyUsers.push(destUser);
             }
         }
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
