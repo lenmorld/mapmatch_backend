@@ -127,7 +127,7 @@ router.post('/signup', function(req, res) {
   if (req.body) {
     var body = req.body;
 
-    var interests1 = req.body.interests.map((i) => i);
+    // var interests1 = req.body.interests.map((i) => i);
 
 
     // create User object
