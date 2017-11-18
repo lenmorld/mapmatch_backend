@@ -124,6 +124,8 @@ router.post('/update', function(req, res) {
 
 router.post('/signup', function(req, res) {
   // var collection = db.get().collection('users');
+
+  console.log(req.body);
   if (req.body) {
     var body = req.body;
 
@@ -141,6 +143,7 @@ router.post('/signup', function(req, res) {
       long: body.long,
     });
     // call custom methods
+
 
     newUser.save(function(err) {
         if(err) {
