@@ -15,7 +15,7 @@ router.get('/all', function(req, res) {
 });
 
 
-app.options('/signup', cors()); // enable pre-flight request for DELETE request
+router.options('/signup', cors()); // enable pre-flight request for DELETE request
 
 router.post('/signup', cors(), function(req, res) {
   var collection = db.get().collection('users');
