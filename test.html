@@ -7,11 +7,7 @@
 $.ajax({
   url: 'http://34.239.117.6:9000/users/signup',
   type:'POST',
-  // This is the important part
-  // xhrFields: {
-  //     withCredentials: true
-  // },
-  // crossDomain: true,
+  crossDomain: true,
   dataType: 'json',
   data: {
     id: '1',
