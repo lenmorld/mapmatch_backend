@@ -1,11 +1,13 @@
 var dbName = 'mapmatch';
 var URL = 'mongodb://localhost:27017/' + dbName;
 var express = require('express'), app = express();
+var bodyParser = require('body-parser');
 
 var db = require('./db');
 
-app.use('/users', require('./controllers/user'));
+app.use(bodyParser.json());
 
+app.use('/users', require('./controllers/user'));
 
 // connect to Mongo on server start
 db.connect(URL, function(err) {
