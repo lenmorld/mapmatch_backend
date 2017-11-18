@@ -79,9 +79,43 @@ function asynchronousProcess() {
   return dUser;
 }
 
-function isNearby(d,s){
+function isNearby(dest,source){
   // process 1 by 1
-  return d;
+  // return d;
+
+    // get distance.
+    googleMapsClient.distanceMatrix({
+      origins: [source.lat.value,source.long.value].join(","),
+      destinations: [dest.lat.value,dest.long.value].join(","),
+      // origins: "43.009953,-81.273613",
+      // destinations: "43.012372,-81.274601",
+      mode: "walking"
+    }, function(err, response) {
+      if (!err) {
+        /*
+        {"destination_addresses":["10 Perth Dr, London, ON N6G 2V4, Canada"],
+        "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
+        "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
+        */
+        // console.log(response);
+        var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
+        console.log("distance", distance);
+
+        if (distance <= DISTANCE ) {
+          console.log("This user is nearby: ", dest);
+          return dest;
+          // nearbyUsers.push(destUser);
+        }
+        // var duration = response.json.rows[0].elements[0].duration;
+        // return distance;
+      }
+      else {
+        return null;
+        // return NaN;      // error
+      }
+    });
+
+
 }
 
 router.post('/search', function(req, res) {
