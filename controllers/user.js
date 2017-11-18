@@ -106,16 +106,14 @@ function isNearby(dest,source){
           return dest;
           // nearbyUsers.push(destUser);
         }
+        else {
+          return null;
+          // return NaN;      // error
+        }
         // var duration = response.json.rows[0].elements[0].duration;
         // return distance;
       }
-      else {
-        return null;
-        // return NaN;      // error
-      }
     });
-
-
 }
 
 router.post('/search', function(req, res) {
