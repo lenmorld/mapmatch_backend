@@ -7,7 +7,7 @@ function shareButton(lat, long){
             crossDomain: true,
             dataType: 'json',
             data: {
-                email: "joeblow@gmail.com",
+                email: userEmail,
                 lat: lat,
                 long: long
             },
@@ -24,12 +24,27 @@ function shareButton(lat, long){
     return btn[0];
 }
 
+function convertTextToArray(var string){
+
+}
+
 function getButton(){
     var btn = $('<button class="btn waves-effect waves-light" type="submit" name="action">Find People</button>');
+
     btn.bind('click', function(){
+			var userGender = "";
+			if($('#male').is(':checked')) {
+				userGender = "M";
+			}
+			else {
+				userGender = "F";
+			}
+			//var
+				var userData = {};
+
         $.ajax({
             url: "http://34.239.117.6:9000/users/",
-            type: 'GET',
+            type: 'POST',
             crossDomain: true,
             dataType: 'json',
             success: function (response) {
@@ -130,7 +145,7 @@ function initMap() {
     var pos;
 	map = new google.maps.Map(document.getElementById('map'), {
 		zoom: 17,
-		center: canada
+		center: canada,
     });
 	var myMarker = new google.maps.Marker({
 		map: map,

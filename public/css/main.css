@@ -321,10 +321,20 @@ text-align :center;
   background-color: #9a4124;
 }
 
+#container {
+  width:100%;
+  height:500px;
+  margin: 0;
+  padding: 0;
+  position:relative;
+}
 #map {
   width: 50%;
-display: none;
-height: 80%;
+    height: 500px;
+    position:relative;
+  display: none;
+
+
 }
 
 #options{
