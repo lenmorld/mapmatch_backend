@@ -127,11 +127,15 @@ router.post('/signup', function(req, res) {
   if (req.body) {
     var body = req.body;
 
+    var interests1 = req.body.interests.map((i) => i);
+
+
     // create User object
     var newUser = new User({
       firstname: body.firstname,
       lastname: body.lastname,
       email: body.email,
+      interests: interests1,
       password: body.password,
       gender: body.gender,
       lat: body.lat,
@@ -171,7 +175,6 @@ router.post('/login', function(req, res) {
     });
   }
 });
-
 
 // userid, username remove
 
