@@ -34,6 +34,7 @@ router.get('/', function(req, res) {
 });
 
 function getDistance(source, dest) {
+  console.log(source, dest);
   // look for people in 1km radius
   // console.log(googleMapsClient);
 
