@@ -85,7 +85,7 @@ function isNearbyRecursive(destUsers,source,nearbyUsers, ctr){
   // process 1 by 1
   // return d;
 
-    var dest = destUsers[counter];
+    var dest = destUsers[ctr];
 
     // get distance.
     googleMapsClient.distanceMatrix({
