@@ -142,17 +142,17 @@ router.post('/search', function(req, res) {
           promise.then(function(result) {
             console.log("promise_nearby: ", result); // "Stuff worked!"
             nearbyUsers.push(result);
-            res.json({"users": nearbyUsers});
+            // res.json({"users": nearbyUsers});
           }, function(err) {
             console.log(err); // Error: "It broke"
             // res.json({"users": null, "message": err});
           });
         }
+        res.json({"users": nearbyUsers})
+
         // console.log("users: ", nearbyUsers);
         // resolve(nearbyUsers);
       });
-
-      res.json({"users": nearbyUsers})
 
       // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
       // res.json({"users": nearbyUsers});
