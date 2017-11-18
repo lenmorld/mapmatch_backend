@@ -19,24 +19,11 @@ app.use(function(req, res, next) {
 // var cors = require('cors');
 // app.use(cors());
 
-app.use('/users', require('./controllers/user'));
+/* MODELS */
 
-// app.post('/signup', function(req, res) {
-//   var collection = db.get().collection('users');
-//   console.log(req.body);
-//   // console.log(res);
-//
-//   if (req.body) {
-//     collection.insert(req.body, function(err, result) {
-//       if (err)
-//         res.json({"message": "Error"});
-//       else {
-//         res.json({"message": "Success", "datasent": res});
-//       }
-//     });
-//   }
-//
-// });
+var User = require('./models/User');
+
+app.use('/users', require('./controllers/user'));
 
 // connect to Mongo on server start
 db.connect(URL, function(err) {
