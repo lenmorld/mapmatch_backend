@@ -119,6 +119,7 @@ function isNearbyRecursive(destUsers,source,nearbyUsers, counter){
 
         ctr++;    // this one processed
 
+        console.log("nearby:", nearbyUsers);
         if (ctr < destUsers.length) {
           isNearbyRecursive(destUsers, source, nearbyUsers, ctr);
         }
