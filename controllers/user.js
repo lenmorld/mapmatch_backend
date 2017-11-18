@@ -152,9 +152,7 @@ router.post('/search', function(req, res) {
         console.log("all users: ", destUsers);
 
         var nearbyUsers = [];
-
         isNearbyRecursive(destUsers, source, nearbyUsers, 0);
-
         res.json({"users": nearbyUsers});
 
 
