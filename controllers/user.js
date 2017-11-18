@@ -156,7 +156,7 @@ router.post('/search', function(req, res) {
 
       // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
       // res.json({"users": nearbyUsers});
-    });
+    // });
   } else {
     // not found
     res.json({"message": "User not found"});
