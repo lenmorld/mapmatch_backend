@@ -43,7 +43,7 @@ router.post('/search', function(req, res) {
     mode: "walking"
   }, function(err, response) {
     if (!err) {
-      console.log(response.json);
+      console.log(JSON.stringify(response.json));
     }
   });
 
