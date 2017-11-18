@@ -51,6 +51,8 @@ function getDistance(source, dest) {
       "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
       "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
       */
+      console.log(response);
+
       var distance = Number(response.json.rows[0].elements[0].distance.split(" ")[0]);    // 0.4
       // var duration = response.json.rows[0].elements[0].duration;
       return distance;
