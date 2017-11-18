@@ -37,7 +37,7 @@ router.post('/search', function(req, res) {
   console.log(googleMapsClient);
 
   // Geocode an address.
-  googleMapsClient.geocode({
+  googleMapsClient.distance({
     origins: "43.009953,-81.273613",
     destinations: "43.012372,-81.274601",
     mode: "walking"
