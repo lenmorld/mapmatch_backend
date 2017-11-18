@@ -108,9 +108,9 @@ function isNearbyRecursive(destUsers,source,nearbyUsers, counter){
         if (distance <= DISTANCE ) {
           console.log("This user is nearby: ", dest);
           // return dest;
-          setTimeout(function() {
+          // setTimeout(function() {
             nearbyUsers.push(dest);
-          }, 1000);
+          // }, 1000);
         }
         // else {
         //   return null;
