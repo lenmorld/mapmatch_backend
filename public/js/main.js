@@ -1,51 +1,32 @@
-/*var map, infoWindow;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 43.009953, lng: -81.273613},
-    zoom: 6
-  });
-  infoWindow = new google.maps.InfoWindow;
-
-  // Try HTML5 geolocation.
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      map.setCenter(pos);
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
-
-
-    var showPosition = function (position) {
-        var userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        // Do whatever you want with userLatLng.
-        var marker = new google.maps.Marker({
-            position: userLatLng,
-            map: map
+function shareButton(lat, long){
+    var btn = $('<button class="btn waves-effect waves-light" type="submit" name="action">Share Location</button>');
+    btn.bind('click', function(){
+        $.ajax({
+            url: "http://34.239.117.6:9000/users/update",                        
+            type: 'POST',            
+            crossDomain: true,            
+            dataType: 'json',            
+            data: {
+                email: "joeblow@gmail.com", 
+                lat: lat, 
+                long: long
+            },
+            success: function (response) {
+                console.log(response);
+                  // handle the response
+              },
+              error: function (xhr, status) {
+                  // handle errors
+                  console.log(status);
+              }
         });
-        map.setZoom(17);
-    }
-    navigator.geolocation.getCurrentPosition(showPosition);
+    });
+    return btn[0];
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-  infoWindow.setPosition(pos);
-  infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-  infoWindow.open(map);
-}*/
 
 var map;
-var canada = {lat:56.1304, lng:-106.346771};
+var canada = {lat:43.009953, lng: -81.273613};
 
 function addYourLocationButton(map, marker) 
 {
@@ -86,14 +67,16 @@ function addYourLocationButton(map, marker)
 			if(imgX == '-18') imgX = '0';
 			else imgX = '-18';
 			$('#you_location_img').css('background-position', imgX+'px 0px');
-		}, 500);
+		}, 300);
 		if(navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
 				var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 				marker.setPosition(latlng);
 				map.setCenter(latlng);
 				clearInterval(animationInterval);
-				$('#you_location_img').css('background-position', '-144px 0px');
+                $('#you_location_img').css('background-position', '-144px 0px');
+                map.controls[google.maps.ControlPosition.TOP_CENTER].push(shareButton(position.coords.longitude, position.coords.latitude));  
+                console.log(position.coords.longitude + " " + position.coords.latitude);                                       
 			});
 		}
 		else{
@@ -103,12 +86,13 @@ function addYourLocationButton(map, marker)
 	});
 	
 	controlDiv.index = 1;
-	map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
+    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 }
 
 function initMap() {
+    var pos;
 	map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 2,
+		zoom: 17,
 		center: canada
     });
 	var myMarker = new google.maps.Marker({
@@ -116,9 +100,7 @@ function initMap() {
 		animation: google.maps.Animation.DROP,
         position: canada
     });
-    
     addYourLocationButton(map, myMarker);
-    map.setZoom(17);
 }
 
 $(document).ready(function(e) {
