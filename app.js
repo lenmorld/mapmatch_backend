@@ -8,6 +8,10 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc'
+});
+
 var app = express();
 
 // view engine setup
@@ -31,6 +35,8 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 // error handler
 app.use(function(err, req, res, next) {
