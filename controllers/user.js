@@ -34,17 +34,18 @@ router.get('/', function(req, res) {
 
 router.post('/search', function(req, res) {
   // look for people in 1km radius
+  console.log(googleMapsClient);
 
   // Geocode an address.
-googleMapsClient.geocode({
-  origins: "43.009953,-81.273613",
-  destinations: "43.012372,-81.274601",
-  mode: "walking"
-}, function(err, response) {
-  if (!err) {
-    console.log(response.json.results);
-  }
-});
+  googleMapsClient.geocode({
+    origins: "43.009953,-81.273613",
+    destinations: "43.012372,-81.274601",
+    mode: "walking"
+  }, function(err, response) {
+    if (!err) {
+      console.log(response.json.results);
+    }
+  });
 
 //https://maps.googleapis.com/maps/api/distancematrix/json?
 // origins=43.009953,-81.273613&
