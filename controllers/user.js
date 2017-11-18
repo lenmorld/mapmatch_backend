@@ -2,7 +2,7 @@ var express = require('express'), router = express.Router();
 var db = require('../db');
 var User = require('../models/User');
 
-var geolin = require('geolib');
+var geolib = require('geolib');
 
 var googleMapsClient = require('@google/maps')
   .createClient({
