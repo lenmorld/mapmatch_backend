@@ -20,8 +20,8 @@
 </head>
 <body>
 
-  <nav>
-    <div class="nav-wrapper">
+  <nav id="nav-bar">
+    <div class="nav-wrapper" >
       <a href="index.html" class="brand-logo"><img src="img/logo-nav.png" style="width: 13vw; margin-left: .7vw;"></img></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="index.html">Home</a></li>
@@ -62,8 +62,51 @@
       </div>
     </div>
   </div>
-  <div id="map">
+
+  <div id="map" style="float: left;">
   </div>
+  <div id="options" style="float:right;">
+    <h2 style="margin-right: 10vw;"> Looking For: </h2>
+    <div class="row">
+      <form class="col s12" style="margin-right: 30vw;">
+        <div class="row">
+          <p>
+            <input name="group1" type="radio" id="male" />
+            <label for="male">Male</label>
+          </p>
+          <p>
+            <input name="group1" type="radio" id="female" />
+            <label for="female">Female</label>
+          </p>
+        </div>
+        <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">thumbs_up_down</i>
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Hobbies/Interests: </label>
+        </div>
+      </div>
+      <div class="row">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">music_note</i>
+        <textarea id="textarea1" class="materialize-textarea"></textarea>
+        <label for="textarea1">Music Artists/Genre: </label>
+      </div>
+    </div>
+    <div class="row">
+    <div class="input-field col s12">
+      <i class="material-icons prefix">movie</i>
+      <textarea id="textarea1" class="materialize-textarea"></textarea>
+      <label for="textarea1">Movies/TV Shows: </label>
+    </div>
+  </div>
+
+
+      </form>
+      <h3> MATCHES FOUND: </h3>
+    </div>
+  </div>
+
   <p id="demo"></p>
 
 
@@ -80,6 +123,9 @@
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc&callback=initMap">
+  </script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript" src="js/loginsignup.js"></script>
 

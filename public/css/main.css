@@ -321,6 +321,12 @@ text-align :center;
   background-color: #9a4124;
 }
 
-map {
+#map {
   width: 50%;
+display: none;
+height: 80%;
+}
+
+#options{
+  display: none;
 }

@@ -48,6 +48,9 @@ function submitLogIn(){
       }
       else {
         $("#login-form").fadeOut(1000);
+        $("#nav-bar").fadeOut(1000);
+        $("#map").fadeIn(1000);
+        $("#options").fadeIn(1000);
         showMap();
       }
     }
@@ -161,7 +164,7 @@ function showMap(){
           position: canada
       });
       addYourLocationButton(map, myMarker);
-  
+
 
 
 
