@@ -187,6 +187,9 @@ router.post('/search', function(req, res) {
         // }
 
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
+
+        console.log(nearbyUsers);
+
         res.json({"users": nearbyUsers});
       });
     } else {
