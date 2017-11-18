@@ -117,17 +117,20 @@ function isNearbyRecursive(destUsers,source,nearbyUsers, ctr){
         //   // return NaN;      // error
         // }
 
-        ctr++;    // this one processed
 
         console.log("nearby:", nearbyUsers);
         console.log("c: ",ctr);
+        console.log(destUsers.length);
         if (ctr < destUsers.length) {
           console.log("recurse");
+          ctr++;    // this one processed
           isNearbyRecursive(destUsers, source, nearbyUsers, ctr);
         }
         else {
           return;
         }
+
+
 
         // var duration = response.json.rows[0].elements[0].duration;
         // return distance;
