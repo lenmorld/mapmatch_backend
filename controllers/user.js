@@ -95,7 +95,8 @@ router.post('/search', function(req, res) {
         console.log("all users: ", users);
         var nearbyUsers = [];
         for(var i=0; i<users.length;i++) {
-            var distance = getDistance(user, destUser[0]);
+            var destUser = users[0];
+            var distance = getDistance(user, destUser);
             console.log("distance: ", distance);
             if (!isNaN(distance) && distance < DISTANCE ) {
               console.log("This user is nearby: ", destUser);
