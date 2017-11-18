@@ -107,7 +107,7 @@ function isNearby(dest,source){
           // nearbyUsers.push(destUser);
         }
         else {
-          return dest;
+          return null;
           // return NaN;      // error
         }
         // var duration = response.json.rows[0].elements[0].duration;
@@ -134,7 +134,15 @@ router.post('/search', function(req, res) {
         }
         console.log("all users: ", destUsers);
 
-        var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);})
+        // var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);});
+
+          var nearbyUsers: Object[] = await Promise.all(destUsers.map(async (d):
+            Promise<Object> => {await isNearby(d, source);
+                return d;
+            } ));
+
+
+
         // process 1 by 1
 
         // nearbyUsers = destUsers.forEach(function(dUser, i) {
