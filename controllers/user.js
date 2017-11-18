@@ -80,7 +80,6 @@ router.post('/search', function(req, res) {
 
   // get user
   User.findOne({ email: req.body.email }, function(err, source) {
-    console.log(source);
     if(err) {
       res.json({"message": err});
     }
@@ -92,49 +91,79 @@ router.post('/search', function(req, res) {
           res.json({"message": err});
         }
         console.log("all users: ", users);
-        var nearbyUsers = [];
-        for(var i=0; i<users.length;i++) {
-            var dest = users[0];
-            // var distance = getDistance(user, destUser);
 
-            // get distance.
-            googleMapsClient.distanceMatrix({
-              origins: [source.lat.value,source.long.value].join(","),
-              destinations: [dest.lat.value,dest.long.value].join(","),
-              // origins: "43.009953,-81.273613",
-              // destinations: "43.012372,-81.274601",
-              mode: "walking"
-            }, function(err, response) {
-              if (!err) {
-                /*
-                {"destination_addresses":["10 Perth Dr, London, ON N6G 2V4, Canada"],
-                "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
-                "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
-                */
-                // console.log(response);
-                var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
-                console.log("distance", distance);
 
-                if (distance <= DISTANCE ) {
-                  console.log("This user is nearby: ", dest);
-                  nearbyUsers.push(destUser);
+        var promise = new Promise(function(resolve, reject) {
+          // do a thing, possibly async, then…
+
+          var nearbyUsers = [];
+          /********** ASYNC GOOGLE MAPS *******/
+          for(var i=0; i<users.length;i++) {
+              var dest = users[i];
+              // var distance = getDistance(user, destUser);
+
+              // get distance.
+              googleMapsClient.distanceMatrix({
+                origins: [source.lat.value,source.long.value].join(","),
+                destinations: [dest.lat.value,dest.long.value].join(","),
+                // origins: "43.009953,-81.273613",
+                // destinations: "43.012372,-81.274601",
+                mode: "walking"
+              }, function(err, response) {
+                if (!err) {
+                  /*
+                  {"destination_addresses":["10 Perth Dr, London, ON N6G 2V4, Canada"],
+                  "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
+                  "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
+                  */
+                  // console.log(response);
+                  var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
+                  console.log("distance", distance);
+
+                  if (distance <= DISTANCE ) {
+                    console.log("This user is nearby: ", dest);
+                    nearbyUsers.push(destUser);
+                  }
+                  // var duration = response.json.rows[0].elements[0].duration;
+                  // return distance;
+                } else {
+                  reject(Error("It broke"));    // reject promise
                 }
-                // var duration = response.json.rows[0].elements[0].duration;
-                // return distance;
-              }
-              else {
-                // return NaN;      // error
-              }
-            });
+              });
 
-            // console.log("distance: ", distance);
-            // if (!isNaN(distance) && distance < DISTANCE ) {
-            //   console.log("This user is nearby: ", dest);
-            //   nearbyUsers.push(destUser);
-            // }
-        }
+              // console.log("distance: ", distance);
+              // if (!isNaN(distance) && distance < DISTANCE ) {
+              //   console.log("This user is nearby: ", dest);
+              //   nearbyUsers.push(destUser);
+              // }
+          }
+
+          // everything turned out
+          resolve(nearbyUsers);
+
+
+          /***********************************/
+
+          // if (/* everything turned out fine */) {
+          //   resolve(function() {
+          //   });
+          // }
+          // else {
+          //   reject(Error("It broke"));
+          // }
+        });
+
+
+        promise.then(function(result) {
+          console.log(result); // "Stuff worked!"
+          res.json({"users": nearbyUsers});
+        }, function(err) {
+          console.log(err); // Error: "It broke"
+          res.json({"users": null, "message": err});
+        });
+
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
-        res.json({"users": nearbyUsers});
+        // res.json({"users": nearbyUsers});
       });
     } else {
       // not found
