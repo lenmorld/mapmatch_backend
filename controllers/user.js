@@ -121,20 +121,21 @@ function isNearbyRecursive(destUsers,source,nearbyUsers, ctr){
         console.log("nearby:", nearbyUsers);
         console.log("c: ",ctr);
         console.log(destUsers.length);
+
         if (ctr < destUsers.length) {
           console.log("recurse");
           ctr++;    // this one processed
-          isNearbyRecursive(destUsers, source, nearbyUsers, ctr);
+          return isNearbyRecursive(destUsers, source, nearbyUsers, ctr);
         }
         else {
-          return;
+          return ;
         }
-
-
 
         // var duration = response.json.rows[0].elements[0].duration;
         // return distance;
       }
+      else
+        console.log("ERROR: " + err);
     });
 }
 
