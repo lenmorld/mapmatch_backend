@@ -31,7 +31,8 @@ router.post('/search', function(req, res) {
 
 router.post('/login', function(req, res) {
   if (req.body) {
-    User.find({ email: req.body.email }, function(err, user) {
+    User.findOne({ email: req.body.email, password: req.body.password }, function(err, user) {
+      console.log(user);
       if(err) {
         res.json({"message": err});
       }
