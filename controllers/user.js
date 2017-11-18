@@ -79,12 +79,13 @@ function asynchronousProcess() {
   return dUser;
 }
 
-var allProcessed = 0;
 
 
-function isNearby(dest,source){
+function isNearby(destUsers,source,nearbyUsers, counter){
   // process 1 by 1
   // return d;
+
+    var dest = destUsers[counter];
 
     // get distance.
     googleMapsClient.distanceMatrix({
@@ -106,14 +107,24 @@ function isNearby(dest,source){
 
         if (distance <= DISTANCE ) {
           console.log("This user is nearby: ", dest);
-          return dest;
-          // nearbyUsers.push(destUser);
+          // return dest;
+          nearbyUsers.push(dest);
+        }
+        // else {
+        //   return null;
+        //   // return NaN;      // error
+        // }
+
+        ctr++;    // this one processed
+
+        if (ctr < destUsers.length) {
+          isNearby(destUsers, source, nearbyUsers, ctr);
         }
         else {
-          return null;
-          // return NaN;      // error
+          return;
         }
-        allProcessed++;
+
+
         // var duration = response.json.rows[0].elements[0].duration;
         // return distance;
       }
@@ -138,11 +149,18 @@ router.post('/search', function(req, res) {
         }
         console.log("all users: ", destUsers);
 
+        var nearbyUsers = [];
+
+        isNearbyRecursive(destUsers, source, nearbyUsers, 0);
+
+        res.json({"users": nearbyUsers});
+
+
         // var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);});
 
-        while(allProcessed < destUsers.length) {
-
-        }
+        // while(allProcessed < destUsers.length) {
+        //   var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);});
+        // }
 
         // var destPromises = destUsers.map(function(d)  {
         //   return new Promise((resolve, reject) => {
