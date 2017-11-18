@@ -104,7 +104,13 @@ router.post('/search', function(req, res) {
 
         for(var i=0; i< destUsers.length; i++) {
           // console.log(source.lat, source.long, dUser.lat, dUser.long);
+
           var dUser = destUsers[i];
+
+          // dont for itself
+          if (dUser.email === source.email) {
+            continue;
+          }
 
            var distance = geolib.getDistance(
                 {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
