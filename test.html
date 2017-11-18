@@ -1,0 +1,24 @@
+<html>
+<head></head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$.ajax({
+  url: 'http://34.239.117.6:9000/users/signup',
+  type:'POST',
+  // This is the important part
+  xhrFields: {
+      withCredentials: true
+  },
+  crossDomain: true,
+  dataType: 'json',
+  data: {
+    id: '1'
+  }
+});
+
+</script>
+</body>
+
+</html>

@@ -26,5 +26,6 @@ router.post('/signup', function(req, res) {
 
 });
 
+// userid, username remove
 
 module.exports = router;
