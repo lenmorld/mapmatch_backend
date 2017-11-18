@@ -81,7 +81,7 @@ function asynchronousProcess() {
 
 
 
-function isNearbyRecursive(destUsers,source,nearbyUsers, counter){
+function isNearbyRecursive(destUsers,source,nearbyUsers, ctr){
   // process 1 by 1
   // return d;
 
