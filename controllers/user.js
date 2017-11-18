@@ -35,52 +35,6 @@ router.get('/', function(req, res) {
   // });
 });
 
-function getDistance(source, dest) {
-  // look for people in 1km radius
-  // console.log(googleMapsClient);
-
-  console.log("source coords:", source.lat.value, source.long.value);
-  console.log("dest coords:", dest.lat.value, dest.long.value);
-
-  // get distance.
-  googleMapsClient.distanceMatrix({
-    origins: [source.lat.value,source.long.value].join(","),
-    destinations: [dest.lat.value,dest.long.value].join(","),
-    // origins: "43.009953,-81.273613",
-    // destinations: "43.012372,-81.274601",
-    mode: "walking"
-  }, function(err, response) {
-    if (!err) {
-      /*
-      {"destination_addresses":["10 Perth Dr, London, ON N6G 2V4, Canada"],
-      "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
-      "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
-      */
-      // console.log(response);
-      console.log(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0]);
-      var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
-
-      // var duration = response.json.rows[0].elements[0].duration;
-      return distance;
-    }
-    else {
-      return NaN;      // error
-    }
-  });
-}
-
-// getNearbyUsers() {
-//
-// }
-//
-// {"destination_addresses":["10 Perth Dr, London, ON N6G 2V4, Canada"],
-// "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
-// "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
-
-function asynchronousProcess() {
-  return dUser;
-}
-
 
 router.post('/search', function(req, res) {
   // check distance between this user and other users
@@ -117,8 +71,7 @@ router.post('/search', function(req, res) {
                 {latitude: geolib.useDecimal(dUser.lat.value), longitude: geolib.useDecimal(dUser.long.value)}
             );
 
-            console.log("distance", distance);
-
+            // console.log("distance", distance);
             if (distance <= DISTANCE) {
               nearbyUsers.push(dUser);
             }
@@ -132,12 +85,6 @@ router.post('/search', function(req, res) {
       res.json({"message": "User not found"});
     }
   });
-
-//https://maps.googleapis.com/maps/api/distancematrix/json?
-// origins=43.009953,-81.273613&
-// destinations=43.012372,-81.274601&
-// mode=walking&
-// key=AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc
 
 });
 
@@ -175,12 +122,10 @@ router.post('/update', function(req, res) {
   }
 });
 
-
 // router.options('/signup', cors()); // enable pre-flight request for DELETE request
 
 router.post('/signup', function(req, res) {
   // var collection = db.get().collection('users');
-
   if (req.body) {
     var body = req.body;
 
