@@ -31,12 +31,11 @@ router.get('/', function(req, res) {
   // });
 });
 
-
-router.post('/search', function(req, res) {
+function getDistance(lat, long) {
   // look for people in 1km radius
   console.log(googleMapsClient);
 
-  // Geocode an address.
+  // get distance.
   googleMapsClient.distanceMatrix({
     origins: "43.009953,-81.273613",
     destinations: "43.012372,-81.274601",
@@ -46,6 +45,13 @@ router.post('/search', function(req, res) {
       console.log(JSON.stringify(response.json));
     }
   });
+}
+
+router.post('/search', function(req, res) {
+  // look for
+
+
+
 
 //https://maps.googleapis.com/maps/api/distancematrix/json?
 // origins=43.009953,-81.273613&
