@@ -78,6 +78,7 @@ function getDistance(source, dest) {
 router.post('/search', function(req, res) {
   // check distance between this user and other users
 
+  var nearbyUsers = [];
   // get user
   User.findOne({ email: req.body.email }, function(err, source) {
     if(err) {
@@ -93,8 +94,6 @@ router.post('/search', function(req, res) {
         console.log("all users: ", users);
 
 
-
-        var nearbyUsers = [];
         /********** ASYNC GOOGLE MAPS *******/
         for(var i=0; i<users.length;i++) {
           var dest = users[i];
@@ -122,10 +121,14 @@ router.post('/search', function(req, res) {
 
                 if (distance <= DISTANCE ) {
                   console.log("This user is nearby: ", dest);
+                  resolve(destUser);
+                }
+                else {
+                  resolve(null);
                 }
                 // var duration = response.json.rows[0].elements[0].duration;
                 // return distance;
-                resolve(destUser);
+
               } else {
                 reject(Error("It broke"));    // reject promise
               }
@@ -138,6 +141,8 @@ router.post('/search', function(req, res) {
           //   nearbyUsers.push(destUser);
           // }
 
+
+
           // everything turned out
           promise.then(function(result) {
             console.log("promise_nearby: ", result); // "Stuff worked!"
@@ -148,7 +153,7 @@ router.post('/search', function(req, res) {
             // res.json({"users": null, "message": err});
           });
         }
-        res.json({"users": nearbyUsers})
+
 
         // console.log("users: ", nearbyUsers);
         // resolve(nearbyUsers);
@@ -157,6 +162,7 @@ router.post('/search', function(req, res) {
       // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
       // res.json({"users": nearbyUsers});
     // });
+    res.json({"users": nearbyUsers});
   } else {
     // not found
     res.json({"message": "User not found"});
