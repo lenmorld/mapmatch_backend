@@ -17,24 +17,24 @@ app.use(function(req, res, next) {
 // var cors = require('cors');
 // app.use(cors());
 
-// app.use('/users', require('./controllers/user'));
+app.use('/users', require('./controllers/user'));
 
-app.post('/signup', function(req, res) {
-  var collection = db.get().collection('users');
-  console.log(req.body);
-  // console.log(res);
-
-  if (req.body) {
-    collection.insert(req.body, function(err, result) {
-      if (err)
-        res.json({"message": "Error"});
-      else {
-        res.json({"message": "Success", "datasent": res});
-      }
-    });
-  }
-
-});
+// app.post('/signup', function(req, res) {
+//   var collection = db.get().collection('users');
+//   console.log(req.body);
+//   // console.log(res);
+//
+//   if (req.body) {
+//     collection.insert(req.body, function(err, result) {
+//       if (err)
+//         res.json({"message": "Error"});
+//       else {
+//         res.json({"message": "Success", "datasent": res});
+//       }
+//     });
+//   }
+//
+// });
 
 // connect to Mongo on server start
 db.connect(URL, function(err) {
