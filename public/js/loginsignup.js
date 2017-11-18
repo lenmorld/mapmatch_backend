@@ -28,7 +28,7 @@ function submitSignUp(){
     success: function(data) {
       console.log(data);
       alert("Sign up successful!")
-      window.location.replace("/login.html");
+      window.location.replace("../public/login.html");
     }
   });
 }
@@ -56,8 +56,8 @@ function submitLogIn(){
         $("#options").fadeIn(1000);
         initMap();
 
-});
       }
     }
+
   });
 }

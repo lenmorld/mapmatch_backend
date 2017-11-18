@@ -24,7 +24,7 @@ function shareButton(lat, long){
     return btn[0];
 }
 
-function convertTextToArray(var string){
+function convertTextToArray(string){
 	var array = string.split(',');
 	return array;
 }
