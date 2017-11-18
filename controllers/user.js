@@ -142,8 +142,6 @@ router.post('/search', function(req, res) {
           });
         });
 
-
-
         // var destPromises = destUsers.map((d) => {
         //   return new Promise((resolve, reject) => {
         //     isNearby(d, source)
@@ -152,10 +150,11 @@ router.post('/search', function(req, res) {
 
         Promise.all(destPromises).then(values => {
           console.log("resolve:", values);
+          // console.log(values);
 
-          console.log(values);
-
-          res.json({"users": values});
+          setTimeout(function() {
+            res.json({"users": values});
+          }, 3000);
 
         });
 
