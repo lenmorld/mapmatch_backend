@@ -129,7 +129,6 @@ router.post('/signup', function(req, res) {
 
     // var interests1 = req.body.interests.map((i) => i);
 
-
     // create User object
     var newUser = new User({
       firstname: body.firstname,
@@ -147,8 +146,9 @@ router.post('/signup', function(req, res) {
         if(err) {
           res.json({"message": err});
           // throw err;
+        }else {
+          res.json({"message": "Success"});
         }
-        res.json({"message": "Success"});
     });
 
     // collection.insert(req.body, function(err, result) {
