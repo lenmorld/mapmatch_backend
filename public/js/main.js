@@ -25,7 +25,8 @@ function shareButton(lat, long){
 }
 
 function convertTextToArray(var string){
-
+	var array = string.split(',');
+	return array;
 }
 
 function getButton(){
@@ -39,13 +40,22 @@ function getButton(){
 			else {
 				userGender = "F";
 			}
-			//var
-				var userData = {};
+				var arrayOfInterests = convertTextToArray($('#interests'));
+				var arrayOfMusic = convertTextToArray($('#music'));
+				var arrayOfMovies = convertTextToArray($('#movie'));
+				var userData = {
+					"email": userEmail,
+					"gender": userGender,
+					"interests": arrayOfInterests,
+					"music": arrayOfMusic,
+					"movies": arrayOfMovies
+				};
 
         $.ajax({
             url: "http://34.239.117.6:9000/users/",
             type: 'POST',
             crossDomain: true,
+						data: userData,
             dataType: 'json',
             success: function (response) {
                 console.log(response.users[0]);
