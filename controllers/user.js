@@ -151,7 +151,12 @@ router.post('/search', function(req, res) {
         // })
 
         Promise.all(destPromises).then(values => {
+          console.log("resolve:", values);
+
           console.log(values);
+
+          res.json({"users": values});
+
         });
 
 
@@ -215,9 +220,7 @@ router.post('/search', function(req, res) {
 
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
 
-        console.log(nearbyUsers);
 
-        res.json({"users": nearbyUsers});
       });
     } else {
       // not found
