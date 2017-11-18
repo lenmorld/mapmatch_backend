@@ -130,7 +130,7 @@ router.post('/search', function(req, res) {
                 reject(Error("It broke"));    // reject promise
               }
             });
-          }
+          });
 
           // console.log("distance: ", distance);
           // if (!isNaN(distance) && distance < DISTANCE ) {
