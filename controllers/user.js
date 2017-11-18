@@ -1,6 +1,7 @@
 var express = require('express'), router = express.Router();
 
 var db = require('../db');
+var cors = require('cors');
 
 router.get('/', function(req, res) {
     res.json({"message": "Hello world - express!"});
