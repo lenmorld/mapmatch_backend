@@ -34,13 +34,13 @@ router.post('/update', function(req, res) {
   // email, lat, long
   if (req.body) {
     // find user with given email
-    User.findOneAndUpdate({ email: req.body.email },
-      { lat: req.body.lat, long: req.body.long },
-      function(err, user) {
+    User.findOneAndUpdate({ email: req.body.email },    // find this
+      { lat: req.body.lat, long: req.body.long },       // update these fields
+       {new: true},                                     // return updated instead of old
+      function(err, user) {                             // callback
         if(err) {
           res.json({"message": err});
         }
-
         res.json({"user": user});
       })
   }
