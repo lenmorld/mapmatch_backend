@@ -38,6 +38,8 @@ function getDistance(source, dest) {
   // look for people in 1km radius
   // console.log(googleMapsClient);
 
+  console.log("coords:", source.lat,source.long);
+
   // get distance.
   googleMapsClient.distanceMatrix({
     origins: [source.lat,source.long].join(","),
