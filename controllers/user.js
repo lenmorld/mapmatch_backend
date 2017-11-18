@@ -135,7 +135,7 @@ router.post('/signup', function(req, res) {
       firstname: body.firstname,
       lastname: body.lastname,
       email: body.email,
-      interests: interests1,
+      // interests: interests1,
       password: body.password,
       gender: body.gender,
       lat: body.lat,
