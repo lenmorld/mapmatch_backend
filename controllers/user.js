@@ -1,6 +1,6 @@
 var express = require('express'), router = express.Router();
 
-app.get('/', function(req, res) {
+router.get('/', function(req, res) {
     res.json({"message": "Hello world - express!"});
 });
 
