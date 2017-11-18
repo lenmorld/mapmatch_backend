@@ -76,7 +76,7 @@ router.post('/search', function(req, res) {
   // check distance between this user and other users
 
   // get user
-  User.findOne({ email: req.body.email, password: req.body.password }, function(err, user) {
+  User.findOne({ email: req.body.email }, function(err, user) {
     console.log(user);
     if(err) {
       res.json({"message": err});
@@ -107,13 +107,11 @@ router.post('/search', function(req, res) {
     }
   });
 
-
 //https://maps.googleapis.com/maps/api/distancematrix/json?
 // origins=43.009953,-81.273613&
 // destinations=43.012372,-81.274601&
 // mode=walking&
 // key=AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc
-
 
 });
 
