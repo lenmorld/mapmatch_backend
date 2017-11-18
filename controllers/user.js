@@ -102,7 +102,7 @@ router.post('/search', function(req, res) {
 
         var nearbyUsers = [];
 
-        for(var i=0; i< destUsers.lengthl i++) {
+        for(var i=0; i< destUsers.length; i++) {
           // console.log(source.lat, source.long, dUser.lat, dUser.long);
           var dUser = destUsers[i];
 
