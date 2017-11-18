@@ -12,6 +12,14 @@ $.ajax({
   data: {
     id: '1',
     name: "lenny"
+  },
+  success: function (response) {
+    console.log(response);
+      // handle the response
+  },
+  error: function (xhr, status) {
+      // handle errors
+      console.log(status);
   }
 });
 
