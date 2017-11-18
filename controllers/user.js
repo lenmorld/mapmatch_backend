@@ -107,18 +107,6 @@ router.post('/search', function(req, res) {
     }
   });
 
-  // get all users
-  // get all the users
-  User.find({}, function(err, users) {
-    if (err) throw err;
-
-    // object of all the users
-    console.log(users);
-
-    // array of distances
-    var distances = users.map(function((user) {return getDistance(user.lat, user.long) }));
-  });
-
 
 //https://maps.googleapis.com/maps/api/distancematrix/json?
 // origins=43.009953,-81.273613&
