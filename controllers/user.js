@@ -29,6 +29,23 @@ router.post('/search', function(req, res) {
 
 });
 
+router.post('/login', function(req, res) {
+  if (req.body) {
+    User.find({ email: req.body.email }, function(err, user) {
+      if(err) {
+        res.json({"message": err});
+      }
+
+      if(user) {
+        res.json({"auth": true});
+      } else {
+        // not found
+        res.json({"auth": false});
+      }
+
+    });
+  }
+};
 
 router.post('/update', function(req, res) {
   // email, lat, long
