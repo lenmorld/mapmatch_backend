@@ -102,7 +102,7 @@ router.post('/search', function(req, res) {
         }
         console.log("all users: ", destUsers);
 
-        var nearbyUsers = destUsers.map(function(d) {return isNearby(d,s);})
+        var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);})
         // process 1 by 1
 
         // nearbyUsers = destUsers.forEach(function(dUser, i) {
