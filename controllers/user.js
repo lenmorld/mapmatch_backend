@@ -55,7 +55,7 @@ function getDistance(source, dest) {
       "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
       */
       // console.log(response);
-      console.log(response.json.rows[0]);
+      console.log(JSON.stringify(response.json.rows[0].elements[0].distance));
 
       var distance = Number(response.json.rows[0].elements[0].distance.split(" ")[0]);    // 0.4
       // var duration = response.json.rows[0].elements[0].duration;
