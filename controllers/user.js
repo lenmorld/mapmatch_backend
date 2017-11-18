@@ -1,6 +1,8 @@
 var express = require('express'), router = express.Router();
 
 var db = require('../db');
+
+var User = require('../models/User');
 // var cors = require('cors');
 
 router.get('/', function(req, res) {
