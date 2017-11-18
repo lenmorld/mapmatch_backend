@@ -102,8 +102,9 @@ router.post('/search', function(req, res) {
 
         var nearbyUsers = [];
 
-        for(dUser in destUsers) {
-          console.log(source.lat, source.long, dUser.lat, dUser.long);
+        for(var i=0; i< destUsers.lengthl i++) {
+          // console.log(source.lat, source.long, dUser.lat, dUser.long);
+          var dUser = destUsers[i];
 
            var distance = geolib.getDistance(
                 {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
