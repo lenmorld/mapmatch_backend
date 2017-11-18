@@ -1,8 +1,15 @@
 var express = require('express'), router = express.Router();
-
 var db = require('../db');
-
 var User = require('../models/User');
+
+var googleMapsClient = require('@google/maps')
+  .createClient({
+    key: 'AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc'
+  });
+
+
+
+
 // var cors = require('cors');
 
 // router.get('/', function(req, res) {
@@ -26,6 +33,25 @@ router.get('/', function(req, res) {
 
 
 router.post('/search', function(req, res) {
+  // look for people in 1km radius
+
+  // Geocode an address.
+googleMapsClient.geocode({
+  origins: "43.009953,-81.273613",
+  destinations: "43.012372,-81.274601",
+  mode: "walking"
+}, function(err, response) {
+  if (!err) {
+    console.log(response.json.results);
+  }
+});
+
+//https://maps.googleapis.com/maps/api/distancematrix/json?
+// origins=43.009953,-81.273613&
+// destinations=43.012372,-81.274601&
+// mode=walking&
+// key=AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc
+
 
 });
 
