@@ -136,7 +136,7 @@ router.post('/search', function(req, res) {
 
         // var nearbyUsers = destUsers.map(function(d) {return isNearby(d,source);});
 
-        var destPromises = {destUsers.map((d) => {
+        var destPromises = {destUsers.map(function(d)  {
           return new Promise((resolve, reject) => {
             resolve(isNearby(d, source));
           });
