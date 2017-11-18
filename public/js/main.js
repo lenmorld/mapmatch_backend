@@ -2,10 +2,10 @@ function shareButton(lat, long){
     var btn = $('<button class="btn waves-effect waves-light" type="submit" name="action">Share Location</button>');
     btn.bind('click', function(){
         $.ajax({
-            url: "http://34.239.117.6:9000/users/update",                        
-            type: 'POST',            
-            crossDomain: true,            
-            dataType: 'json',            
+            url: "http://34.239.117.6:9000/users/update",
+            type: 'POST',
+            crossDomain: true,
+            dataType: 'json',
             data: {
                 email: "joeblow@gmail.com",
                 lat: lat,
@@ -28,10 +28,10 @@ function shareButton(lat, long){
 var map;
 var canada = {lat:43.009953, lng: -81.273613};
 
-function addYourLocationButton(map, marker) 
+function addYourLocationButton(map, marker)
 {
 	var controlDiv = document.createElement('div');
-	
+
 	var firstChild = document.createElement('button');
 	firstChild.style.backgroundColor = '#fff';
 	firstChild.style.border = 'none';
@@ -45,7 +45,7 @@ function addYourLocationButton(map, marker)
 	firstChild.style.padding = '0px';
 	firstChild.title = 'Your Location';
 	controlDiv.appendChild(firstChild);
-	
+
 	var secondChild = document.createElement('div');
 	secondChild.style.margin = '5px';
 	secondChild.style.width = '18px';
@@ -56,7 +56,7 @@ function addYourLocationButton(map, marker)
 	secondChild.style.backgroundRepeat = 'no-repeat';
 	secondChild.id = 'you_location_img';
 	firstChild.appendChild(secondChild);
-	
+
 	google.maps.event.addListener(map, 'dragend', function() {
 		$('#you_location_img').css('background-position', '0px 0px');
 	});
@@ -75,7 +75,11 @@ function addYourLocationButton(map, marker)
 				map.setCenter(latlng);
 				clearInterval(animationInterval);
                 $('#you_location_img').css('background-position', '-144px 0px');
-                map.controls[google.maps.ControlPosition.TOP_CENTER].push(shareButton(position.coords.longitude, position.coords.latitude));  
+								if(map.controls[google.maps.ControlPosition.TOP_CENTER].length != 0){
+									map.controls[google.maps.ControlPosition.TOP_CENTER].pop();
+								}
+                map.controls[google.maps.ControlPosition.TOP_CENTER].push(shareButton(position.coords.longitude, position.coords.latitude));
+                console.log(position.coords.longitude + " " + position.coords.latitude);
 			});
 		}
 		else{
@@ -83,7 +87,7 @@ function addYourLocationButton(map, marker)
 			$('#you_location_img').css('background-position', '0px 0px');
 		}
 	});
-	
+
 	controlDiv.index = 1;
     map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(controlDiv);
 }
@@ -104,4 +108,4 @@ function initMap() {
 
 $(document).ready(function(e) {
     initMap();
-});	
+});
