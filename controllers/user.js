@@ -56,7 +56,7 @@ function getDistance(source, dest) {
       */
       // console.log(response);
       console.log(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0]);
-      var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0]);    // 0.4
+      var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
 
       // var duration = response.json.rows[0].elements[0].duration;
       return distance;
