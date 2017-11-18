@@ -5,20 +5,46 @@ var db = require('../db');
 var User = require('../models/User');
 // var cors = require('cors');
 
+// router.get('/', function(req, res) {
+//     res.json({"message": "Hello world - express!"});
+// });
+
 router.get('/', function(req, res) {
-    res.json({"message": "Hello world - express!"});
-});
+  // var collection = db.get().collection('users');
 
-router.get('/all', function(req, res) {
-  var collection = db.get().collection('users');
-
-  collection.find().toArray(function(err, docs) {
-    res.json(JSON.stringify(docs));
+  User.find({}, function(err, users) {
+    if(err) {
+      res.json({"message": err});
+    }
+    res.json({"users": users});
   });
+
+  // collection.find().toArray(function(err, docs) {
+  //   res.json(JSON.stringify(docs));
+  // });
 });
 
 
-// router.post('/search')
+router.post('/search', function(req, res) {
+
+});
+
+
+router.post('/update', function(req, res) {
+  // email, lat, long
+  if (req.body) {
+    // find user with given email
+    User.findByOneAndUpdate({ email: req.body.email },
+      { lat: req.body.lat, long: req.body.long },
+      function(err, user) {
+        if(err) {
+          res.json({"message": err});
+        }
+
+        res.json({"user": user});
+      })
+  }
+});
 
 
 // router.options('/signup', cors()); // enable pre-flight request for DELETE request
@@ -42,8 +68,10 @@ router.post('/signup', function(req, res) {
     // call custom methods
 
     newUser.save(function(err) {
-        if(err) throw err;
-
+        if(err) {
+          res.json({"message": err});
+          // throw err;
+        }
         res.json({"message": "Success"});
     });
 
