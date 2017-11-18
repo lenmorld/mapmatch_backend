@@ -79,8 +79,8 @@ router.post('/search', function(req, res) {
   // check distance between this user and other users
 
   // get user
-  User.findOne({ email: req.body.email }, function(err, user) {
-    console.log(user);
+  User.findOne({ email: req.body.email }, function(err, source) {
+    console.log(source);
     if(err) {
       res.json({"message": err});
     }
@@ -94,16 +94,47 @@ router.post('/search', function(req, res) {
         console.log("all users: ", users);
         var nearbyUsers = [];
         for(var i=0; i<users.length;i++) {
-            var destUser = users[0];
-            var distance = getDistance(user, destUser);
-            console.log("distance: ", distance);
-            if (!isNaN(distance) && distance < DISTANCE ) {
-              console.log("This user is nearby: ", destUser);
-              nearbyUsers.push(destUser);
-            }
+            var dest = users[0];
+            // var distance = getDistance(user, destUser);
+
+            // get distance.
+            googleMapsClient.distanceMatrix({
+              origins: [source.lat.value,source.long.value].join(","),
+              destinations: [dest.lat.value,dest.long.value].join(","),
+              // origins: "43.009953,-81.273613",
+              // destinations: "43.012372,-81.274601",
+              mode: "walking"
+            }, function(err, response) {
+              if (!err) {
+                /*
+                {"destination_addresses":["10 Perth Dr, London, ON N6G 2V4, Canada"],
+                "origin_addresses":["1960 Middlesex Dr, London, ON N6G 2V4, Canada"],
+                "rows":[{"elements":[{"distance":{"text":"0.4 km","value":418},"duration":{"text":"5 mins","value":309},"status":"OK"}]}],"status":"OK"}
+                */
+                // console.log(response);
+                console.log(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0]);
+                var distance = Number(JSON.stringify(response.json.rows[0].elements[0].distance.text).split(" ")[0].split('"')[1]);    // 0.4
+
+
+                if (distance < DISTANCE ) {
+                  console.log("This user is nearby: ", dest);
+                  nearbyUsers.push(destUser);
+                }
+                // var duration = response.json.rows[0].elements[0].duration;
+                // return distance;
+              }
+              else {
+                // return NaN;      // error
+              }
+            });
+
+            // console.log("distance: ", distance);
+            // if (!isNaN(distance) && distance < DISTANCE ) {
+            //   console.log("This user is nearby: ", dest);
+            //   nearbyUsers.push(destUser);
+            // }
         }
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
-
         res.json({"users": nearbyUsers});
       });
     } else {
