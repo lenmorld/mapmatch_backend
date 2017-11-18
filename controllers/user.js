@@ -92,7 +92,6 @@ router.post('/search', function(req, res) {
         }
         console.log("all users: ", users);
 
-
         var promise = new Promise(function(resolve, reject) {
           // do a thing, possibly async, then…
 
@@ -141,7 +140,7 @@ router.post('/search', function(req, res) {
           // everything turned out
           resolve(nearbyUsers);
 
-
+          res.json({"users": nearbyUsers});
           /***********************************/
 
           // if (/* everything turned out fine */) {
@@ -153,14 +152,14 @@ router.post('/search', function(req, res) {
           // }
         });
 
-
-        promise.then(function(result) {
-          console.log(result); // "Stuff worked!"
-          res.json({"users": nearbyUsers});
-        }, function(err) {
-          console.log(err); // Error: "It broke"
-          res.json({"users": null, "message": err});
-        });
+        // 
+        // promise.then(function(result) {
+        //   console.log(result); // "Stuff worked!"
+        //   res.json({"users": nearbyUsers});
+        // }, function(err) {
+        //   console.log(err); // Error: "It broke"
+        //   res.json({"users": null, "message": err});
+        // });
 
         // var nearbyUsers = users.map(function((user) {return getDistance(user.lat, user.long) }));
         // res.json({"users": nearbyUsers});
