@@ -140,7 +140,7 @@ router.post('/search', function(req, res) {
           return new Promise((resolve, reject) => {
             resolve(isNearby(d, source));
           });
-        })}
+        });}
 
 
 
