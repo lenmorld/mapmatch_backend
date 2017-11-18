@@ -36,30 +36,35 @@
   <![endif]-->
 
   <!-- Add your site or application content here -->
-  <h1 style="text-align:center;"> Sign into your account </h1>
-  <div class="row">
-    <form class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="email" type="email" class="validate">
-          <label for="email" data-error="Please enter a valid email!">Email</label>
+  <div id="login-form">
+    <h1 style="text-align:center;"> Sign into your account </h1>
+    <div class="row">
+      <form class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="Please enter a valid email!">Email</label>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate">
+            <label for="password">Password</label>
+          </div>
         </div>
-      </div>
 
-    </form>
-    <div id="buttons" class="center-align">
-    <a class="waves-effect waves-light btn" href="signup.html">Sign Up</a>
-  <button class="btn waves-effect waves-light" type="submit" name="action"> Log In
-    <i class="material-icons right">send</i>
-  </button>
-</div>
+      </form>
+      <div id="buttons" class="center-align">
+        <a class="waves-effect waves-light btn" href="signup.html">Sign Up</a>
+        <button class="btn waves-effect waves-light" type="submit" name="action" onclick="submitLogIn()"> Log In
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
   </div>
+  <div id="map">
+  </div>
+  <p id="demo"></p>
 
 
 
@@ -76,6 +81,7 @@
   <script src="js/main.js"></script>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/loginsignup.js"></script>
 
   <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
   <script>
