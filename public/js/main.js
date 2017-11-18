@@ -7,8 +7,8 @@ function shareButton(lat, long){
             crossDomain: true,            
             dataType: 'json',            
             data: {
-                email: "joeblow@gmail.com", 
-                lat: lat, 
+                email: "joeblow@gmail.com",
+                lat: lat,
                 long: long
             },
             success: function (response) {
@@ -76,7 +76,6 @@ function addYourLocationButton(map, marker)
 				clearInterval(animationInterval);
                 $('#you_location_img').css('background-position', '-144px 0px');
                 map.controls[google.maps.ControlPosition.TOP_CENTER].push(shareButton(position.coords.longitude, position.coords.latitude));  
-                console.log(position.coords.longitude + " " + position.coords.latitude);                                       
 			});
 		}
 		else{
