@@ -116,7 +116,7 @@ function initMap() {
 		animation: google.maps.Animation.DROP,
         position: canada
     });
-    map.setZoom(2);
+    
     addYourLocationButton(map, myMarker);
     map.setZoom(17);
 }
