@@ -12,8 +12,6 @@ var googleMapsClient = require('@google/maps')
 
 const DISTANCE = 1000;
 
-
-
 // var cors = require('cors');
 
 // router.get('/', function(req, res) {
