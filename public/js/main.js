@@ -24,6 +24,38 @@ function shareButton(lat, long){
     return btn[0];
 }
 
+function getButton(){
+    var btn = $('<button class="btn waves-effect waves-light" type="submit" name="action">Find People</button>');
+    btn.bind('click', function(){
+        $.ajax({
+            url: "http://34.239.117.6:9000/users/",
+            type: 'GET',
+            crossDomain: true,
+            dataType: 'json',
+            success: function (response) {
+                console.log(response.users[0]);
+
+                for (var i = 0; i < response.users.length; i++) {
+                    var latitude = response.users[i].lat;
+                    var longitude = response.users[i].long;
+                    console.log(latitude + " " + longitude);
+                    var latLng = new google.maps.LatLng(latitude,longitude);
+                    var marker = new google.maps.Marker({
+                    position: latLng,
+                    map: map
+                    });
+                }
+                  // handle the response
+              },
+              error: function (xhr, status) {
+                  // handle errors
+                  console.log(status);
+              }
+        });
+    });
+    return btn[0];
+}
+
 
 var map;
 var canada = {lat:43.009953, lng: -81.273613};
@@ -75,10 +107,12 @@ function addYourLocationButton(map, marker)
 				map.setCenter(latlng);
 				clearInterval(animationInterval);
                 $('#you_location_img').css('background-position', '-144px 0px');
-								if(map.controls[google.maps.ControlPosition.TOP_CENTER].length != 0){
-									map.controls[google.maps.ControlPosition.TOP_CENTER].pop();
-								}
+				if(map.controls[google.maps.ControlPosition.TOP_CENTER].length || map.controls[google.maps.ControlPosition.BOTTOM_CENTER].length!= 0){
+                    map.controls[google.maps.ControlPosition.TOP_CENTER].pop();
+                    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].pop();
+				}
                 map.controls[google.maps.ControlPosition.TOP_CENTER].push(shareButton(position.coords.longitude, position.coords.latitude));
+                map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(getButton());
                 console.log(position.coords.longitude + " " + position.coords.latitude);
 			});
 		}
