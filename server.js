@@ -7,7 +7,7 @@ var db = require('./db');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true;
+  extended: true
 }));
 
 /* CORS */
