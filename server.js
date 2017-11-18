@@ -1,6 +1,6 @@
 var dbName = 'mapmatch';
 var URL = 'mongodb://localhost:27017/' + dbName;
-var express = require(express), app = express();
+var express = require('express'), app = express();
 
 var db = require('./db');
 
