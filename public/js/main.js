@@ -140,6 +140,6 @@ function initMap() {
     addYourLocationButton(map, myMarker);
 }
 
-$(document).ready(function(e) {
-    initMap();
-});
+//$(document).ready(function(e) {
+  //  initMap();
+//});
