@@ -82,17 +82,17 @@ function getButton(){
 						$('#popUpUserName').text(titleuser + " " + lastname);
 						var newHTML = [];
 						for(var x = 0; x < listofinterests.length; x++){
-							newHTML.push('<span>' +listofinterests[x] + '</span>');
+							newHTML.push('<span>' +listofinterests[x] + '</span><br>');
 						}
 						$("#popUpInterests").html(newHTML.join(""));
 						newHTML = [];
 						for(var x = 0; x < listofmusic.length; x++){
-							newHTML.push('<span>' +listofmusic[x] + '</span>');
+							newHTML.push('<span>' +listofmusic[x] + '</span><br>');
 						}
 						$("#popUpMusic").html(newHTML.join(""));
 						newHTML = [];
 						for(var x = 0; x < listofmovies.length; x++){
-							newHTML.push('<span>' +listofmovies[x] + '</span>');
+							newHTML.push('<span>' +listofmovies[x] + '</span><br>');
 						}
 						$("#popUpMovies").html(newHTML.join(""));
 						$('#popup').modal('open');
