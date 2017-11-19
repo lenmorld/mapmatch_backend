@@ -33,16 +33,16 @@ router.get('/', function(req, res) {
 
 function checkMatch(arr1, arr2) {
 
-  if (!arr1 || !arr1.length || !arr2 || !arr2.length) {
-    return false;
-  }
-
-  // default threshold: 1
-  var match = false;
-  arr1.forEach((item)=> {if (arr2.includes(item)) match = true;});
-
-  console.log("match ",arr1,arr2, match);
-  return match;
+  // if (!arr1 || !arr1.length || !arr2 || !arr2.length) {
+  //   return false;
+  // }
+  //
+  // // default threshold: 1
+  // var match = false;
+  // arr1.forEach((item)=> {if (arr2.includes(item)) match = true;});
+  //
+  // console.log("match ",arr1,arr2, match);
+  // return match;
 }
 
 router.post('/', function(req, res) {
@@ -108,16 +108,15 @@ router.post('/', function(req, res) {
               }
               console.log("nearby users to ", source.email ,":" , nearbyUsers);
               // res.json({"users": nearbyUsers});
-
               // match user's interests array with nearbyUser's arrays
               var compatibleNearbyUsers = [];
               for(var i=0; i< nearbyUsers.length; i++) {
                 var nearby = nearbyUsers[i];
                 console.log("nearby: ", nearby);
                 if (checkMatch(lookingForGender, nearby.gender) &&
-                checkMatch(newUser.interests, nearby.interests) ||
-                checkMatch(newUser.music, nearby.music) ||
-                checkMatch(newUser.movies, nearby.movies))
+                  checkMatch(newUser.interests, nearby.interests) ||
+                  checkMatch(newUser.music, nearby.music) ||
+                  checkMatch(newUser.movies, nearby.movies))
                 {
                   // MATCH!
                   compatibleNearbyUsers.push(nearby);
