@@ -24,7 +24,22 @@ router.get('/', function(req, res) {
   });
 });
 
-function checkMatch(arr1, arr2) {
+
+function copy(o) {
+   var output, v, key;
+   output = Array.isArray(o) ? [] : {};
+   for (key in o) {
+       v = o[key];
+       output[key] = (typeof v === "object") ? copy(v) : v;
+   }
+   return output;
+}
+
+
+function checkMatch(arrTemp1, arrTemp2) {
+
+  var arr1 = copy(arrTemp1),  arr2 = copy(arrTemp2);
+
   console.log(arr1, arr2);
   // console.log(arr1 === arr2);
   // if (arr1 && arr2)
