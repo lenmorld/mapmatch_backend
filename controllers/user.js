@@ -117,12 +117,12 @@ router.post('/', function(req, res) {
                 {
                   // MATCH!
                   compatibleNearbyUsers.push(nearby);
+                  console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", true);
                 }
                 else {
 
                 }
               }
-              console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", compatibleNearbyUsers);
               res.json({"users": compatibleNearbyUsers});
             });
           });
