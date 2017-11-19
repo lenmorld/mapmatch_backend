@@ -35,11 +35,20 @@ router.get('/', function(req, res) {
 
 function checkMatch(arr1, arr2) {
   // default threshold: 1
+  var match = false;
+  arr1.forEach((item)=> {if (arr2.includes(item)) match = true;});
+
+  console.log(match);
+  return match;
 
 }
 
 router.post('/', function(req, res) {
   // get user looking for
+  var interests = req.body.interests;
+  var music = req.body.music;
+  var movies = req.body.movies;
+
   User.findOne({ email: req.body.email }, function(err, source) {
     console.log(source);
     if(err) {
@@ -191,7 +200,7 @@ router.post('/login', function(req, res) {
       }
 
       if(user) {
-        res.json({"auth": true, "user": user.email});
+        res.json({"auth": true, "user": user});
       } else {
         // not found
         res.json({"auth": false});
@@ -232,7 +241,9 @@ router.post('/update', function(req, res) {
         firstname: body.firstname,
         lastname: body.lastname,
         email: body.email,
-        // interests: interests1,
+        // interests: body.interests,
+        // movies: body.movies,
+        // music: body.music,
         password: body.password,
         gender: body.gender,
         lat: body.lat,
