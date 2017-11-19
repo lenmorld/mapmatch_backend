@@ -162,10 +162,10 @@ router.post('/', function(req, res) {
                 var nearby = nearbyUsers[i];
                 console.log("nearby: ", nearby);
                 console.log(newUser.interests, nearby.interests);
-                if (lookingForGender === nearby.gender &&
+                if (lookingForGender === nearby.gender && (
                   checkMatch(newUser.interests, nearby.interests,newUser.music, nearby.music) ||
                   checkMatch(newUser.music, nearby.music) ||
-                  checkMatch(newUser.movies, nearby.movies))
+                  checkMatch(newUser.movies, nearby.movies)))
                   {
                     // MATCH!
                     compatibleNearbyUsers.push(nearby);
