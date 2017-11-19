@@ -34,6 +34,7 @@ router.get('/', function(req, res) {
 function checkMatch(arr1, arr2) {
   console.log(arr1, arr2);
   console.log(arr1 === arr2);
+  if (arr1 && arr2)
   console.log(arr1[0], arr2[0]);
   // if (!arr1 || !arr1.length || !arr2 || !arr2.length) {
   //   return false;
