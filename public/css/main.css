@@ -336,7 +336,9 @@ text-align :center;
 
 
 }
-
+#popup {
+  
+}
 #options{
   display: none;
 }

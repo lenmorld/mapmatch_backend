@@ -1,5 +1,5 @@
 
-var userEmail = "";
+var USEREMAIL = "";
 function submitSignUp(){
   var userPassword = $("#password").val();
   var userEmail = $("#email").val();
@@ -50,12 +50,13 @@ function submitLogIn(){
         alert("Username or password incorrect!");
       }
       else {
-        userEmail = data.email;
+        console.log(data);
+        USEREMAIL = data.user.email;
         $("#login-form").fadeOut(1000);
         $("#nav-bar").fadeOut(1000);
         $("#map").fadeIn(1000);
         $("#options").fadeIn(1000);
-        initMap();
+        initMap(USEREMAIL);
 
       }
     }
