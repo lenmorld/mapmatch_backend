@@ -1,0 +1,33 @@
+<html>
+<head></head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$.ajax({
+  url: 'http://34.239.117.6:9000/users/update',
+  // url: 'http://localhost:9000/users/signup',
+  type:'POST',
+  crossDomain: true,
+  dataType: 'json',
+  // contentType: 'application/json',
+  data: {
+    email: "gilbertchlam@hotmail.com",
+    lat: 43.0055,
+    long: -81.265189,
+  },
+
+  success: function (response) {
+    console.log(response);
+      // handle the response
+  },
+  error: function (xhr, status) {
+      // handle errors
+      console.log(status);
+  }
+});
+
+</script>
+</body>
+
+</html>

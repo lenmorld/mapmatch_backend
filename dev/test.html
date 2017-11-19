@@ -1,0 +1,35 @@
+<html>
+<head></head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$.ajax({
+  url: 'http://34.239.117.6:9000/users/signup',
+  // url: 'http://localhost:9000/users/signup',
+  type:'POST',
+  crossDomain: true,
+  dataType: 'json',
+  data: {
+    firstname: "Dwaynie",
+    lastname: "Wadie",
+    email: "dw@gmail.com",
+    password: "123456",
+    gender: "M",
+    lat: 43.001418,
+    long: -81.275614,
+  },
+  success: function (response) {
+    console.log(response);
+      // handle the response
+  },
+  error: function (xhr, status) {
+      // handle errors
+      console.log(status);
+  }
+});
+
+</script>
+</body>
+
+</html>
