@@ -62,7 +62,7 @@ function checkMatch(arr1, arr2) {
   // console.log("arr2 includes: arr1[0]", arr2.includes(arr1[0]));
 
   for(var i=0; i< arr1.length; i++) {
-    console.log("item:", arr1);
+    console.log("item:", arr1[i]);
     if (arr2.includes(arr1[i])) {
       return true;
     }
