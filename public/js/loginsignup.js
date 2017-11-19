@@ -17,14 +17,15 @@ function submitSignUp(){
   "lastname": userLastName,
   "email": userEmail,
   "password": userPassword,
-  "username": userName,
-  "gender": userGender};
+  "gender": userGender,
+  "lat": 0,
+  "long": 0};
   console.log(requestData);
   $.ajax({
     url: 'http://34.239.117.6:9000/users/signup',
     type:'POST',
     dataType: 'json',
-    data: JSON.stringify(requestData),
+    data: requestData,
     success: function(data) {
       console.log(data);
       alert("Sign up successful!")

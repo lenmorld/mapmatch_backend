@@ -24,8 +24,8 @@ function shareButton(lat, long){
     return btn[0];
 }
 
-function convertTextToArray(string){
-	var array = string.split(',');
+function convertTextToArray(text){
+	var array = text.split(',');
 	return array;
 }
 
@@ -40,9 +40,9 @@ function getButton(){
 			else {
 				userGender = "F";
 			}
-				var arrayOfInterests = convertTextToArray($('#interests'));
-				var arrayOfMusic = convertTextToArray($('#music'));
-				var arrayOfMovies = convertTextToArray($('#movie'));
+				var arrayOfInterests = convertTextToArray($('#interests').val());
+				var arrayOfMusic = convertTextToArray($('#music').val());
+				var arrayOfMovies = convertTextToArray($('#movie').val());
 				var userData = {
 					"email": userEmail,
 					"gender": userGender,
