@@ -55,6 +55,8 @@ function checkMatch(arr1, arr2) {
     arr2 = arr2[0].replace("[", "").replace("]", "").split(",");
   }
 
+  console.log(arr1, arr2);
+
   // console.log("arr2 includes: arr1[0]", arr2.includes(arr1[0]));
 
   for(var i=0; i< arr1.length; i++) {
