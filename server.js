@@ -2,6 +2,7 @@ var dbName = 'mapmatch';
 var URL = 'mongodb://localhost:27017/' + dbName;
 var express = require('express'), app = express();
 var bodyParser = require('body-parser');
+var path    = require("path");
 
 var db = require('./db');
 
@@ -25,7 +26,8 @@ var User = require('./models/User');
 
 
 app.get('/', function(req, res) {
-    res.sendFile('./public/index.html');
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+
     // res.json({"message": "Hello world - express!"});
 });
 
