@@ -46,7 +46,11 @@ function checkMatch(arr1, arr2) {
     return false;
   }
 
-  console.log(arr1[0] === arr2[0]);
+  // for(var i=0; i< arr1.length; i++) {
+  //   if (arr1[i] === )
+  // }
+
+  console.log(arr2.includes(arr1[0]));
 
 
   // if (!arr1 || !arr1.length || !arr2 || !arr2.length) {
