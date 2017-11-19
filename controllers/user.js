@@ -41,7 +41,7 @@ function checkMatch(arr1, arr2) {
   var match = false;
   arr1.forEach((item)=> {if (arr2.includes(item)) match = true;});
 
-  console.log(match);
+  console.log("match ",arr1,arr2, match);
   return match;
 }
 
@@ -80,7 +80,7 @@ router.post('/', function(req, res) {
             newUser = user;
             // res.json({"user": user});
             console.log("Updated user: ", newUser);
-            console.log("---loking for: ", lookingForGender, req.body.interests, req.body.music, req.body.movies);
+            console.log("---loking for: ", lookingForGender, req.body.interests, req.body.movies, req.body.music);
 
             // get nearby users
             User.find({}, function(err, destUsers) {
@@ -119,10 +119,10 @@ router.post('/', function(req, res) {
                 {
                   // MATCH!
                   compatibleNearbyUsers.push(nearby);
-                  console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", true);
+                  console.log("compatible [" , newUser.email , "," , nearby.email, "]: ", true);
                 }
                 else {
-                    console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", false);
+                    console.log("compatible [" , newUser.email , "," , nearby.email, "]: ", false);
                 }
               }
               res.json({"users": compatibleNearbyUsers});
