@@ -125,11 +125,7 @@ router.post('/', function(req, res) {
               console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", compatibleNearbyUsers);
               res.json({"users": compatibleNearbyUsers});
             });
-
-
           });
-
-
         } else {
           res.json({"message": "User not found"});
         }
@@ -215,7 +211,6 @@ router.post('/', function(req, res) {
           res.json({"message": "User not found"});
         }
       });
-
     });
 
     router.post('/login', function(req, res) {
