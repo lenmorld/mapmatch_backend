@@ -61,33 +61,24 @@ function getButton(){
 			dataType: 'json',
 			success: function (response) {
 				console.log(response);
-				var markers = [];
+				console.log(response.users[0]);
 				for (var i = 0; i < response.users.length; i++) {
 					var latitude = response.users[i].lat;
 					var longitude = response.users[i].long;
+					var titleuser = response.users[i].firstname;
 					console.log(latitude + " " + longitude);
-					var latLng = new google.maps.LatLng(latitude,longitude);
-
-						var marker = new google.maps.Marker({
-							position: latLng,
-							map: map,
-							optimized: false,
-						});
-						marker.addListener('click', function() {
-          console.log("het");
-        });
-				markers.push(marker);
-
-
-
-					//<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
-
-					//marker.addListener('click', function() {
-
-
-					//	});
+					latLng = new google.maps.LatLng(longitude,latitude);
+					var marker = new google.maps.Marker({
+						position: latLng,
+						map: map,
+						title: 'Hello!'
+					});
+					console.log("Finished Marker");
+					marker.addListener('click', function() {
+						$('#popup').modal('open');
+					});
 				}
-				// handle the response
+
 			},
 			error: function (xhr, status) {
 				// handle errors
@@ -185,6 +176,4 @@ function initMap(USEREMAIL) {
 
 $(document).ready(function(e) {
 	$('.modal').modal();
-
-
 });
