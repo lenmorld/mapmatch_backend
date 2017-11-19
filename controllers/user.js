@@ -38,6 +38,23 @@ function checkMatch(arr1, arr2) {
   {
     return false;
   }
+
+  // take care of android compatibilities
+  // ["null"]
+  if (arr1[0] === "null" || arr2[0] === "null")
+  {
+    return false;
+  }
+
+  // ["[rockclimbing, bowing]"], ["[rockclimbing]"]
+  // => ["rockclimbing, bowling"]
+  if (arr1[0][0] === "[") {
+    arr1 = arr1[0].replace("[", "").replace("]", "").split(",");
+  }
+  if (arr2[0][0] === "[") {
+    arr2 = arr2[0].replace("[", "").replace("]", "").split(",");
+  }
+
   // console.log("arr2 includes: arr1[0]", arr2.includes(arr1[0]));
 
   for(var i=0; i< arr1.length; i++) {
