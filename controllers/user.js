@@ -121,6 +121,11 @@ router.post('/', function(req, res) {
               return;
             }
             newUser = user;
+
+            if(!newUser.lat || !newuUser.long) {
+              res.json("error:", "lat or long not set for: " + newUser.email)
+            }
+
             // res.json({"user": user});
             console.log("Updated user: ", newUser);
             console.log("---loking for: ", lookingForGender, req.body.interests, req.body.movies, req.body.music);
