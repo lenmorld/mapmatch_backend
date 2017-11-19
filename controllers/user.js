@@ -34,6 +34,7 @@ router.get('/', function(req, res) {
 });
 
 function checkMatch(arr1, arr2) {
+  // default threshold: 1
 
 }
 
@@ -78,9 +79,9 @@ router.post('/', function(req, res) {
         var compatibleNearbyUsers = [];
         for(nearby in nearbyUsers) {
           if (checkMatch(source.gender, nearby.gender) &&
-          checkMatch(source.gender, nearby.gender) ||
-          checkMatch(source.gender, nearby.gender) ||
-          checkMatch(source.gender, nearby.gender))
+          checkMatch(source.interests, nearby.interests) ||
+          checkMatch(source.music, nearby.music) ||
+          checkMatch(source.movies, nearby.movies))
           {
             // MATCH!
             compatibleNearbyUsers.push(nearby);
@@ -90,7 +91,7 @@ router.post('/', function(req, res) {
 
           }
         }
-        res.json({"users": users});
+        res.json({"users": compatibleNearbyUsers});
       });
     } else {
       res.json({"message": "User not found"});
@@ -182,6 +183,7 @@ router.post('/search', function(req, res) {
 
 router.post('/login', function(req, res) {
   if (req.body) {
+    console.log(req.body);
     User.findOne({ email: req.body.email, password: req.body.password }, function(err, user) {
       console.log(user);
       if(err) {
@@ -258,20 +260,20 @@ router.post('/update', function(req, res) {
     }
   });
 
-
-  router.post('/login', function(req, res) {
-    var collection = db.get().collection('users');
-
-    if (req.body) {
-      collection.insert(req.body, function(err, result) {
-        if (err)
-        res.json({"message": "Error"});
-        else {
-          res.json({"message": "Success"});
-        }
-      });
-    }
-  });
+  //
+  // router.post('/login', function(req, res) {
+  //   var collection = db.get().collection('users');
+  //
+  //
+  //   if (req.body) {
+  //     collection.insert(req.body, function(err, result) {
+  //       if (err)
+  //         res.json({"message": "Error"});
+  //       else
+  //         res.json({"message": "Success"});
+  //     });
+  //   }
+  // });
 
   // userid, username remove
 
