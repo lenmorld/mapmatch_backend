@@ -22,22 +22,8 @@ var userSchema = new Schema({
   },
 });
 
-
 // add methods for validations, formatting, etc
 
 var User = mongoose.model('User', userSchema);
 
 module.exports = User;
-
-/*
-// userid X
-// username X
-// email
-// password
-// firstname
-// lastname
-// gender
-// lat
-// long
-
-*/
