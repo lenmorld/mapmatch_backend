@@ -22,6 +22,8 @@ app.use(function(req, res, next) {
 
 /* MODELS */
 
+app.use(express.static('public'))
+
 var User = require('./models/User');
 
 
