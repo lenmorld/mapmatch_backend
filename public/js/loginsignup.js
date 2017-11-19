@@ -60,13 +60,22 @@ function submitLogIn(){
         $("#map").fadeIn(1000);
         $("#options").fadeIn(1000);
         for(var i = 0; i < userInterests.length;i++){
-          $("#interests").text($("#interests").val()+userInterests[i]+",");
+          $("#interests").text($("#interests").val()+userInterests[i]);
+          if(i != userInterests.length -1){
+            $("#interests").text($("#interests").val()+",");
+          }
         }
         for(var i = 0; i < userMusic.length;i++){
-          $("#music").text($("#music").val()+userMusic[i]+",");
+          $("#music").text($("#music").val()+userMusic[i]);
+          if(i != userInterests.length -1){
+            $("#music").text($("#music").val()+",");
+          }
         }
         for(var i = 0; i < userMovies.length;i++){
-          $("#movie").text($("#movie").val()+userMovies[i]+",");
+          $("#movie").text($("#movie").val()+userMovies[i]);
+          if(i != userInterests.length -1){
+            $("#movie").text($("#movie").val()+",");
+          }
         }
         Materialize.updateTextFields();
         initMap(USEREMAIL);

@@ -66,6 +66,10 @@ function getButton(){
 					var latitude = response.users[i].lat;
 					var longitude = response.users[i].long;
 					var titleuser = response.users[i].firstname;
+					var lastname = response.users[i].lastname;
+					var listofinterests = response.users[i].interests;
+					var listofmusic = response.users[i].music;
+					var listofmovies = response.users[i].movies;
 					console.log(latitude + " " + longitude);
 					latLng = new google.maps.LatLng(longitude,latitude);
 					var marker = new google.maps.Marker({
@@ -75,6 +79,22 @@ function getButton(){
 					});
 					console.log("Finished Marker");
 					marker.addListener('click', function() {
+						$('#popUpUserName').text(titleuser + " " + lastname);
+						var newHTML = [];
+						for(var x = 0; x < listofinterests.length; x++){
+							newHTML.push('<span>' +listofinterests[x] + '</span>');
+						}
+						$("#popUpInterests").html(newHTML.join(""));
+						newHTML = [];
+						for(var x = 0; x < listofmusic.length; x++){
+							newHTML.push('<span>' +listofmusic[x] + '</span>');
+						}
+						$("#popUpMusic").html(newHTML.join(""));
+						newHTML = [];
+						for(var x = 0; x < listofmovies.length; x++){
+							newHTML.push('<span>' +listofmovies[x] + '</span>');
+						}
+						$("#popUpMovies").html(newHTML.join(""));
 						$('#popup').modal('open');
 					});
 				}
