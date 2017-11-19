@@ -49,7 +49,6 @@ router.post('/', function(req, res) {
 
   console.log("req: ", req.body);
 
-
   // get user looking for
   var interests = req.body.interests;
   var music = req.body.music;
@@ -69,7 +68,8 @@ router.post('/', function(req, res) {
       var newUser;
 
       User.findOneAndUpdate({ email: req.body.email },    // find this
-        { lat: req.body.lat, long: req.body.long },       // update these fields
+        { interests: req.body.interests, movies: req.body.movies,
+          music: req.body.music  },       // update these fields
         {new: true},                                     // return updated instead of old
         function(err, user) {                             // callback
           if(err) {
