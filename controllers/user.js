@@ -111,7 +111,8 @@ router.post('/', function(req, res) {
 
               // match user's interests array with nearbyUser's arrays
               var compatibleNearbyUsers = [];
-              for(nearby in nearbyUsers) {
+              for(var i=0; i< nearbyUsers.length; i++) {
+                nearby = nearbyUsers[i];
                 console.log("nearby: ", nearby);
                 if (checkMatch(lookingForGender, nearby.gender) &&
                 checkMatch(newUser.interests, nearby.interests) ||
