@@ -1,6 +1,7 @@
 var map;
 var userEmailGlobal = "";
 var arrayOfPeople = [];
+var markersArray = [];
 function shareButton(lat, long){
 	var btn = $('<button class="btn waves-effect waves-light" type="submit" name="action">Share Location</button>');
 	btn.bind('click', function(){
@@ -53,7 +54,7 @@ function getButton(){
 			"music": arrayOfMusic,
 			"movies": arrayOfMovies
 		};
-
+		clearOverlays();
 		$.ajax({
 			url: "http://34.239.117.6:9000/users/",
 			type: 'POST',
@@ -81,6 +82,7 @@ function getButton(){
 						map: map,
 						title: response.users[i].firstname + " " + response.users[i].lastname
 					});
+					markersArray.push(marker);
 					console.log("Finished Marker");
 					marker.addListener('click', function() {
 						var listofmovie = [];
@@ -126,7 +128,12 @@ function getButton(){
 	return btn[0];
 }
 
-
+function clearOverlays() {
+  for (var i = 0; i < markersArray.length; i++ ) {
+    markersArray[i].setMap(null);
+  }
+  markersArray.length = 0;
+}
 
 var canada = {lat:43.009953, lng: -81.273613};
 
