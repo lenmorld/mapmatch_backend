@@ -50,9 +50,11 @@ function checkMatch(arr1, arr2) {
   // => ["rockclimbing, bowling"]
   if (arr1[0][0] === "[") {
     arr1 = arr1[0].replace("[", "").replace("]", "").split(",");
+    console.log(arr1);
   }
   if (arr2[0][0] === "[") {
     arr2 = arr2[0].replace("[", "").replace("]", "").split(",");
+    console.log(arr2);
   }
 
   console.log(arr1, arr2);
@@ -60,6 +62,7 @@ function checkMatch(arr1, arr2) {
   // console.log("arr2 includes: arr1[0]", arr2.includes(arr1[0]));
 
   for(var i=0; i< arr1.length; i++) {
+    console.log("item:", arr1);
     if (arr2.includes(arr1[i])) {
       return true;
     }
