@@ -80,20 +80,19 @@ router.post('/', function(req, res) {
             newUser = user;
             // res.json({"user": user});
             console.log("Updated user: ", newUser);
+            console.log("---loking for: ", lookingForGender, req.body.interests, req.body.music, req.body.movies);
 
             // get nearby users
             User.find({}, function(err, destUsers) {
               if(err) {
                 res.json({"message": err});
               }
-
               // console.log("all users: ", destUsers);
               var nearbyUsers = [];
               for(var i=0; i< destUsers.length; i++) {
                 var dUser = destUsers[i];
-
                 // dont for itself
-                if (dUser.email === source.email) {
+                if (dUser.email === newUser.email) {
                   continue;
                 }
 
@@ -123,7 +122,7 @@ router.post('/', function(req, res) {
                   console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", true);
                 }
                 else {
-
+                    console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", false);
                 }
               }
               res.json({"users": compatibleNearbyUsers});
