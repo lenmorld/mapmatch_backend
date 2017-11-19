@@ -57,13 +57,24 @@ function checkMatch(arr1, arr2) {
     console.log(arr2);
   }
 
-  console.log(arr1, arr2);
+
 
   // console.log("arr2 includes: arr1[0]", arr2.includes(arr1[0]));
 
+  for(var i=0; i< arr2.length; i++) {
+    arr2[i] = arr2[i].trim().toUpperCase();
+  }
+
   for(var i=0; i< arr1.length; i++) {
-    console.log("item:", arr1[i]);
-    if (arr2.includes(arr1[i])) {
+    arr1[i] = arr1[i].trim().toUpperCase();
+  }
+
+  console.log(arr1, arr2);
+
+  for(var i=0; i< arr1.length; i++) {
+    // console.log("item:", arr1[i]);
+
+    if (arr2.includes(arr1[i] {
       return true;
     }
   }
