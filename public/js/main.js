@@ -1,5 +1,6 @@
 var map;
 var userEmailGlobal = "";
+var arrayOfPeople = [];
 function shareButton(lat, long){
 	var btn = $('<button class="btn waves-effect waves-light" type="submit" name="action">Share Location</button>');
 	btn.bind('click', function(){
@@ -65,20 +66,36 @@ function getButton(){
 				for (var i = 0; i < response.users.length; i++) {
 					var latitude = response.users[i].lat;
 					var longitude = response.users[i].long;
-					var titleuser = response.users[i].firstname;
-					var lastname = response.users[i].lastname;
-					var listofinterests = response.users[i].interests;
-					var listofmusic = response.users[i].music;
-					var listofmovies = response.users[i].movies;
+					var tempObj = {
+						titleuser : response.users[i].firstname,
+						lastname : response.users[i].lastname,
+						listofinterests : response.users[i].interests,
+						listofmusic : response.users[i].music,
+						listofmovies : response.users[i].movies
+					}
+					arrayOfPeople.push(tempObj);
 					console.log(latitude + " " + longitude);
 					latLng = new google.maps.LatLng(longitude,latitude);
 					var marker = new google.maps.Marker({
 						position: latLng,
 						map: map,
-						title: 'Hello!'
+						title: response.users[i].firstname + " " + response.users[i].lastname
 					});
 					console.log("Finished Marker");
 					marker.addListener('click', function() {
+						var listofmovie = [];
+						var listofmusic = [];
+						var listofinterests = [];
+
+						for(var p = 0; p < arrayOfPeople.length; p++){
+							if((arrayOfPeople[p].titleuser + " " + arrayOfPeople[p].lastname) === this.title){
+								listofmusic = arrayOfPeople[p].listofmusic;
+								listofmovie = arrayOfPeople[p].listofmovies;
+								listofinterests = arrayOfPeople[p].listofinterests;
+								titleuser = arrayOfPeople[p].titleuser;
+								lastname = arrayOfPeople[p].lastname;
+							}
+						}
 						$('#popUpUserName').text(titleuser + " " + lastname);
 						var newHTML = [];
 						for(var x = 0; x < listofinterests.length; x++){
@@ -91,8 +108,8 @@ function getButton(){
 						}
 						$("#popUpMusic").html(newHTML.join(""));
 						newHTML = [];
-						for(var x = 0; x < listofmovies.length; x++){
-							newHTML.push('<span>' +listofmovies[x] + '</span><br>');
+						for(var x = 0; x < listofmovie.length; x++){
+							newHTML.push('<span>' +listofmovie[x] + '</span><br>');
 						}
 						$("#popUpMovies").html(newHTML.join(""));
 						$('#popup').modal('open');
