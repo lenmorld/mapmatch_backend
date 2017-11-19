@@ -66,6 +66,7 @@ router.post('/', function(req, res) {
       // save interests, music, movies or update them
 
       var newUser;
+      var lookingForGender = req.body.gender;
 
       User.findOneAndUpdate({ email: req.body.email },    // find this
         { interests: req.body.interests, movies: req.body.movies,
@@ -110,7 +111,7 @@ router.post('/', function(req, res) {
               // match user's interests array with nearbyUser's arrays
               var compatibleNearbyUsers = [];
               for(nearby in nearbyUsers) {
-                if (checkMatch(newUser.gender, nearby.gender) &&
+                if (checkMatch(lookingForGender, nearby.gender) &&
                 checkMatch(newUser.interests, nearby.interests) ||
                 checkMatch(newUser.music, nearby.music) ||
                 checkMatch(newUser.movies, nearby.movies))
