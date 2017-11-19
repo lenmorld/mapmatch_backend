@@ -33,7 +33,7 @@ router.get('/', function(req, res) {
 
 function checkMatch(arr1, arr2) {
 
-  if (!arr1 || !arr1.length || arr2 || !arr2.length) {
+  if (!arr1 || !arr1.length || !arr2 || !arr2.length) {
     return false;
   }
 
@@ -47,7 +47,7 @@ function checkMatch(arr1, arr2) {
 
 router.post('/', function(req, res) {
 
-  console.log("req: ", req.body);
+  console.log("FIND MATCH req: ", req.body);
 
   // get user looking for
   // var interests = req.body.interests;
@@ -169,6 +169,7 @@ router.post('/', function(req, res) {
 
     router.post('/search', function(req, res) {
       // check distance between this user and other users
+      console.log("SEARCH req: ", req.body);
 
       // get user
       User.findOne({ email: req.body.email }, function(err, source) {
@@ -215,8 +216,8 @@ router.post('/', function(req, res) {
     });
 
     router.post('/login', function(req, res) {
+      console.log("LOGIN req: ", req.body);
       if (req.body) {
-        console.log(req.body);
         User.findOne({ email: req.body.email, password: req.body.password }, function(err, user) {
           console.log(user);
           if(err) {
@@ -234,6 +235,7 @@ router.post('/', function(req, res) {
     });
 
     router.post('/update', function(req, res) {
+      console.log("UPDATE req: ", req.body);
       // email, lat, long
       if (req.body) {
         // find user with given email
@@ -253,8 +255,7 @@ router.post('/', function(req, res) {
 
       router.post('/signup', function(req, res) {
         // var collection = db.get().collection('users');
-
-        console.log(req.body);
+        console.log("SIGNUP req: ", req.body);
         if (req.body) {
           var body = req.body;
 
