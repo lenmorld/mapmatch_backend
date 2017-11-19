@@ -122,8 +122,8 @@ router.post('/', function(req, res) {
             }
             newUser = user;
 
-            if(!newUser.lat || !newuUser.long) {
-              res.json("error:", "lat or long not set for: " + newUser.email)
+            if(!newUser.lat || !newUser.long) {
+              res.json("error:", "lat or long not set for: " + newUser.email);
             }
 
             // res.json({"user": user});
