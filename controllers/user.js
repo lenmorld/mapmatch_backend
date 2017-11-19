@@ -79,6 +79,7 @@ router.post('/', function(req, res) {
             }
             newUser = user;
             // res.json({"user": user});
+            console.log("Updated user: ", newUser);
 
             // get nearby users
             User.find({}, function(err, destUsers) {
@@ -86,7 +87,7 @@ router.post('/', function(req, res) {
                 res.json({"message": err});
               }
 
-              console.log("all users: ", destUsers);
+              // console.log("all users: ", destUsers);
               var nearbyUsers = [];
               for(var i=0; i< destUsers.length; i++) {
                 var dUser = destUsers[i];
@@ -97,7 +98,7 @@ router.post('/', function(req, res) {
                 }
 
                 var distance = geolib.getDistance(
-                  {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
+                  {latitude: geolib.useDecimal(newUser.lat.value), longitude: geolib.useDecimal(newUser.long.value)},
                   {latitude: geolib.useDecimal(dUser.lat.value), longitude: geolib.useDecimal(dUser.long.value)}
                 );
 
@@ -106,6 +107,7 @@ router.post('/', function(req, res) {
                   nearbyUsers.push(dUser);
                 }
               }
+              console.log("nearby users to ", source.email ,":" , nearbyUsers);
               // res.json({"users": nearbyUsers});
 
               // match user's interests array with nearbyUser's arrays
@@ -184,7 +186,7 @@ router.post('/', function(req, res) {
             if(err) {
               res.json({"message": err});
             }
-            console.log("all users: ", destUsers);
+            // console.log("all users: ", destUsers);
             var nearbyUsers = [];
             for(var i=0; i< destUsers.length; i++) {
               // console.log(source.lat, source.long, dUser.lat, dUser.long);
