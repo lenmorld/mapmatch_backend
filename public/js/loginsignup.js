@@ -50,12 +50,25 @@ function submitLogIn(){
         alert("Username or password incorrect!");
       }
       else {
+        var userInterests = data.user.interests;
+        var userMusic = data.user.music;
+        var userMovies = data.user.movies;
         console.log(data);
         USEREMAIL = data.user.email;
         $("#login-form").fadeOut(1000);
         $("#nav-bar").fadeOut(1000);
         $("#map").fadeIn(1000);
         $("#options").fadeIn(1000);
+        for(var i = 0; i < userInterests.length;i++){
+          $("#interests").text($("#interests").val()+userInterests[i]+",");
+        }
+        for(var i = 0; i < userMusic.length;i++){
+          $("#music").text($("#music").val()+userMusic[i]+",");
+        }
+        for(var i = 0; i < userMovies.length;i++){
+          $("#movie").text($("#movie").val()+userMovies[i]+",");
+        }
+        Materialize.updateTextFields();
         initMap(USEREMAIL);
 
       }
