@@ -50,12 +50,11 @@ router.post('/', function(req, res) {
   console.log("req: ", req.body);
 
   // get user looking for
-  var interests = req.body.interests;
-  var music = req.body.music;
-  var movies = req.body.movies;
+  // var interests = req.body.interests;
+  // var music = req.body.music;
+  // var movies = req.body.movies;
 
   // save this, if its not here yet
-
   User.findOne({ email: req.body.email }, function(err, source) {
     console.log("user looking for match: ", source);
     if(err) {
@@ -70,246 +69,250 @@ router.post('/', function(req, res) {
       User.findOneAndUpdate({ email: req.body.email },    // find this
         { interests: req.body.interests, movies: req.body.movies,
           music: req.body.music  },       // update these fields
-        {new: true},                                     // return updated instead of old
-        function(err, user) {                             // callback
+          {new: true},                                     // return updated instead of old
+          function(err, user) {                             // callback
+            if(err) {
+              res.json({"message": "User not found: " + err});
+              return;
+            }
+            newUser = user;
+            // res.json({"user": user});
+
+            // get nearby users
+            User.find({}, function(err, users) {
+              if(err) {
+                res.json({"message": err});
+              }
+
+              console.log("all users: ", destUsers);
+              var nearbyUsers = [];
+              for(var i=0; i< destUsers.length; i++) {
+                var dUser = destUsers[i];
+
+                // dont for itself
+                if (dUser.email === source.email) {
+                  continue;
+                }
+
+                var distance = geolib.getDistance(
+                  {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
+                  {latitude: geolib.useDecimal(dUser.lat.value), longitude: geolib.useDecimal(dUser.long.value)}
+                );
+
+                // console.log("distance", distance);
+                if (distance <= DISTANCE) {
+                  nearbyUsers.push(dUser);
+                }
+              }
+              // res.json({"users": nearbyUsers});
+
+              // match user's interests array with nearbyUser's arrays
+              var compatibleNearbyUsers = [];
+              for(nearby in nearbyUsers) {
+                if (checkMatch(newUser.gender, nearby.gender) &&
+                checkMatch(newUser.interests, nearby.interests) ||
+                checkMatch(newUser.music, nearby.music) ||
+                checkMatch(newUser.movies, nearby.movies))
+                {
+                  // MATCH!
+                  compatibleNearbyUsers.push(nearby);
+                }
+                else {
+
+                }
+              }
+              console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", compatibleNearbyUsers);
+              res.json({"users": compatibleNearbyUsers});
+            });
+
+
+          });
+
+
+        } else {
+          res.json({"message": "User not found"});
+        }
+      });
+
+      // console.log(req.body);
+      // if (req.body) {
+      //   var body = req.body;
+      //
+      //   // var interests1 = req.body.interests.map((i) => i);
+      //
+      //   var gender = body.gender;
+      //   var interests = body.interests;
+      //   var music = body.music;
+      //   var movies = body.movies;
+      //   // gender
+      //   // interests
+      //   // music
+      //   // movies
+      //
+      //   // create User object
+      //   var newUser = new User({
+      //     firstname: body.firstname,
+      //     lastname: body.lastname,
+      //     email: body.email,
+      //     // interests: interests1,
+      //     password: body.password,
+      //     gender: body.gender,
+      //     lat: body.lat,
+      //     long: body.long,
+      //   });
+      //   // call custom methods
+      // }
+
+      // collection.find().toArray(function(err, docs) {
+      //   res.json(JSON.stringify(docs));
+      // });
+    });
+
+
+    router.post('/search', function(req, res) {
+      // check distance between this user and other users
+
+      // get user
+      User.findOne({ email: req.body.email }, function(err, source) {
+        console.log(source);
+        if(err) {
+          res.json({"message": err});
+        }
+
+        if(source) {
+          // get all other users
+          User.find({}, function(err, destUsers) {
+            if(err) {
+              res.json({"message": err});
+            }
+            console.log("all users: ", destUsers);
+            var nearbyUsers = [];
+            for(var i=0; i< destUsers.length; i++) {
+              // console.log(source.lat, source.long, dUser.lat, dUser.long);
+
+              var dUser = destUsers[i];
+
+              // dont for itself
+              if (dUser.email === source.email) {
+                continue;
+              }
+
+              var distance = geolib.getDistance(
+                {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
+                {latitude: geolib.useDecimal(dUser.lat.value), longitude: geolib.useDecimal(dUser.long.value)}
+              );
+
+              // console.log("distance", distance);
+              if (distance <= DISTANCE) {
+                nearbyUsers.push(dUser);
+              }
+            }
+            res.json({"users": nearbyUsers});
+          });
+        } else {
+          // not found
+          res.json({"message": "User not found"});
+        }
+      });
+
+    });
+
+    router.post('/login', function(req, res) {
+      if (req.body) {
+        console.log(req.body);
+        User.findOne({ email: req.body.email, password: req.body.password }, function(err, user) {
+          console.log(user);
           if(err) {
-            res.json({"message": "User not found: " + err});
-            return;
+            res.json({"message": err});
           }
-          newUser = user;
-          // res.json({"user": user});
+
+          if(user) {
+            res.json({"auth": true, "user": user});
+          } else {
+            // not found
+            res.json({"auth": false});
+          }
         });
-
-      // get nearby users
-      User.find({}, function(err, users) {
-        if(err) {
-          res.json({"message": err});
-        }
-
-        console.log("all users: ", destUsers);
-        var nearbyUsers = [];
-        for(var i=0; i< destUsers.length; i++) {
-          var dUser = destUsers[i];
-
-          // dont for itself
-          if (dUser.email === source.email) {
-            continue;
-          }
-
-          var distance = geolib.getDistance(
-            {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
-            {latitude: geolib.useDecimal(dUser.lat.value), longitude: geolib.useDecimal(dUser.long.value)}
-          );
-
-          // console.log("distance", distance);
-          if (distance <= DISTANCE) {
-            nearbyUsers.push(dUser);
-          }
-        }
-        // res.json({"users": nearbyUsers});
-
-        // match user's interests array with nearbyUser's arrays
-        var compatibleNearbyUsers = [];
-        for(nearby in nearbyUsers) {
-          if (checkMatch(newUser.gender, nearby.gender) &&
-          checkMatch(newUser.interests, nearby.interests) ||
-          checkMatch(newUser.music, nearby.music) ||
-          checkMatch(newUser.movies, nearby.movies))
-          {
-            // MATCH!
-            compatibleNearbyUsers.push(nearby);
-          }
-          else {
-
-          }
-        }
-        console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", compatibleNearbyUsers);
-        res.json({"users": compatibleNearbyUsers});
-      });
-    } else {
-      res.json({"message": "User not found"});
-    }
-  });
-
-  // console.log(req.body);
-  // if (req.body) {
-  //   var body = req.body;
-  //
-  //   // var interests1 = req.body.interests.map((i) => i);
-  //
-  //   var gender = body.gender;
-  //   var interests = body.interests;
-  //   var music = body.music;
-  //   var movies = body.movies;
-  //   // gender
-  //   // interests
-  //   // music
-  //   // movies
-  //
-  //   // create User object
-  //   var newUser = new User({
-  //     firstname: body.firstname,
-  //     lastname: body.lastname,
-  //     email: body.email,
-  //     // interests: interests1,
-  //     password: body.password,
-  //     gender: body.gender,
-  //     lat: body.lat,
-  //     long: body.long,
-  //   });
-  //   // call custom methods
-  // }
-
-  // collection.find().toArray(function(err, docs) {
-  //   res.json(JSON.stringify(docs));
-  // });
-});
-
-
-router.post('/search', function(req, res) {
-  // check distance between this user and other users
-
-  // get user
-  User.findOne({ email: req.body.email }, function(err, source) {
-    console.log(source);
-    if(err) {
-      res.json({"message": err});
-    }
-
-    if(source) {
-      // get all other users
-      User.find({}, function(err, destUsers) {
-        if(err) {
-          res.json({"message": err});
-        }
-        console.log("all users: ", destUsers);
-        var nearbyUsers = [];
-        for(var i=0; i< destUsers.length; i++) {
-          // console.log(source.lat, source.long, dUser.lat, dUser.long);
-
-          var dUser = destUsers[i];
-
-          // dont for itself
-          if (dUser.email === source.email) {
-            continue;
-          }
-
-          var distance = geolib.getDistance(
-            {latitude: geolib.useDecimal(source.lat.value), longitude: geolib.useDecimal(source.long.value)},
-            {latitude: geolib.useDecimal(dUser.lat.value), longitude: geolib.useDecimal(dUser.long.value)}
-          );
-
-          // console.log("distance", distance);
-          if (distance <= DISTANCE) {
-            nearbyUsers.push(dUser);
-          }
-        }
-        res.json({"users": nearbyUsers});
-      });
-    } else {
-      // not found
-      res.json({"message": "User not found"});
-    }
-  });
-
-});
-
-router.post('/login', function(req, res) {
-  if (req.body) {
-    console.log(req.body);
-    User.findOne({ email: req.body.email, password: req.body.password }, function(err, user) {
-      console.log(user);
-      if(err) {
-        res.json({"message": err});
-      }
-
-      if(user) {
-        res.json({"auth": true, "user": user});
-      } else {
-        // not found
-        res.json({"auth": false});
       }
     });
-  }
-});
 
-router.post('/update', function(req, res) {
-  // email, lat, long
-  if (req.body) {
-    // find user with given email
-    User.findOneAndUpdate({ email: req.body.email },    // find this
-      { lat: req.body.lat, long: req.body.long },       // update these fields
-      {new: true},                                     // return updated instead of old
-      function(err, user) {                             // callback
-        if(err) {
-          res.json({"message": err});
-        }
-        res.json({"user": user});
-      });
-    }
-  });
-
-  // router.options('/signup', cors()); // enable pre-flight request for DELETE request
-
-  router.post('/signup', function(req, res) {
-    // var collection = db.get().collection('users');
-
-    console.log(req.body);
-    if (req.body) {
-      var body = req.body;
-
-      // var interests1 = req.body.interests.map((i) => i);
-
-      // create User object
-      var newUser = new User({
-        firstname: body.firstname,
-        lastname: body.lastname,
-        email: body.email,
-        // interests: body.interests,
-        // movies: body.movies,
-        // music: body.music,
-        password: body.password,
-        gender: body.gender,
-        lat: body.lat,
-        long: body.long,
-      });
-      // call custom methods
-
-
-      newUser.save(function(err) {
-        if(err) {
-          res.json({"message": err});
-          // throw err;
-        }else {
-          res.json({"message": "Success"});
+    router.post('/update', function(req, res) {
+      // email, lat, long
+      if (req.body) {
+        // find user with given email
+        User.findOneAndUpdate({ email: req.body.email },    // find this
+          { lat: req.body.lat, long: req.body.long },       // update these fields
+          {new: true},                                     // return updated instead of old
+          function(err, user) {                             // callback
+            if(err) {
+              res.json({"message": err});
+            }
+            res.json({"user": user});
+          });
         }
       });
 
-      // collection.insert(req.body, function(err, result) {
-      //   if (err)
-      //     res.json({"message": "Error"});
-      //   else {
-      //     res.json({"message": "Success"});
+      // router.options('/signup', cors()); // enable pre-flight request for DELETE request
+
+      router.post('/signup', function(req, res) {
+        // var collection = db.get().collection('users');
+
+        console.log(req.body);
+        if (req.body) {
+          var body = req.body;
+
+          // var interests1 = req.body.interests.map((i) => i);
+
+          // create User object
+          var newUser = new User({
+            firstname: body.firstname,
+            lastname: body.lastname,
+            email: body.email,
+            // interests: body.interests,
+            // movies: body.movies,
+            // music: body.music,
+            password: body.password,
+            gender: body.gender,
+            lat: body.lat,
+            long: body.long,
+          });
+          // call custom methods
+
+
+          newUser.save(function(err) {
+            if(err) {
+              res.json({"message": err});
+              // throw err;
+            }else {
+              res.json({"message": "Success"});
+            }
+          });
+
+          // collection.insert(req.body, function(err, result) {
+          //   if (err)
+          //     res.json({"message": "Error"});
+          //   else {
+          //     res.json({"message": "Success"});
+          //   }
+          // });
+        }
+      });
+
+      //
+      // router.post('/login', function(req, res) {
+      //   var collection = db.get().collection('users');
+      //
+      //
+      //   if (req.body) {
+      //     collection.insert(req.body, function(err, result) {
+      //       if (err)
+      //         res.json({"message": "Error"});
+      //       else
+      //         res.json({"message": "Success"});
+      //     });
       //   }
       // });
-    }
-  });
 
-  //
-  // router.post('/login', function(req, res) {
-  //   var collection = db.get().collection('users');
-  //
-  //
-  //   if (req.body) {
-  //     collection.insert(req.body, function(err, result) {
-  //       if (err)
-  //         res.json({"message": "Error"});
-  //       else
-  //         res.json({"message": "Success"});
-  //     });
-  //   }
-  // });
+      // userid, username remove
 
-  // userid, username remove
-
-  module.exports = router;
+      module.exports = router;
