@@ -1,5 +1,3 @@
-# MapMatch
-
 ![MapMatch_Logo](public/img/logo-nav.png)
 
 ## Inspiration
