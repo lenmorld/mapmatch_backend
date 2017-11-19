@@ -61,6 +61,7 @@ router.post('/', function(req, res) {
       res.json({"message": err});
     }
 
+
     if(source) {
       // save interests, music, movies or update them
 
@@ -79,7 +80,7 @@ router.post('/', function(req, res) {
             // res.json({"user": user});
 
             // get nearby users
-            User.find({}, function(err, users) {
+            User.find({}, function(err, destUsers) {
               if(err) {
                 res.json({"message": err});
               }
