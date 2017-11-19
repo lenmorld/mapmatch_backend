@@ -23,6 +23,12 @@ app.use(function(req, res, next) {
 
 var User = require('./models/User');
 
+
+app.get('/', function(req, res) {
+    res.sendFile('./public/index.html');
+    // res.json({"message": "Hello world - express!"});
+});
+
 app.use('/users', require('./controllers/user'));
 
 // connect to Mongo on server start
