@@ -9,11 +9,9 @@ var googleMapsClient = require('@google/maps')
   key: 'AIzaSyDvHC-6iyFfVycoK201MoXPjlkVsU01XAc'
 });
 
-
 const DISTANCE = 1000;
 
 // var cors = require('cors');
-
 // router.get('/', function(req, res) {
 //     res.json({"message": "Hello world - express!"});
 // });
@@ -34,13 +32,17 @@ router.get('/', function(req, res) {
 });
 
 function checkMatch(arr1, arr2) {
+
+  if (!arr1 || !arr1.length || arr2 || !arr2.length) {
+    return false;
+  }
+
   // default threshold: 1
   var match = false;
   arr1.forEach((item)=> {if (arr2.includes(item)) match = true;});
 
   console.log(match);
   return match;
-
 }
 
 router.post('/', function(req, res) {
@@ -49,13 +51,31 @@ router.post('/', function(req, res) {
   var music = req.body.music;
   var movies = req.body.movies;
 
+  // save this, if its not here yet
+
   User.findOne({ email: req.body.email }, function(err, source) {
-    console.log(source);
+    console.log("user looking for match: ", source);
     if(err) {
       res.json({"message": err});
     }
 
     if(source) {
+      // save interests, music, movies or update them
+
+      var newUser;
+
+      User.findOneAndUpdate({ email: req.body.email },    // find this
+        { lat: req.body.lat, long: req.body.long },       // update these fields
+        {new: true},                                     // return updated instead of old
+        function(err, user) {                             // callback
+          if(err) {
+            res.json({"message": "User not found: " + err});
+            return;
+          }
+          newUser = user;
+          // res.json({"user": user});
+        });
+
       // get nearby users
       User.find({}, function(err, users) {
         if(err) {
@@ -87,19 +107,19 @@ router.post('/', function(req, res) {
         // match user's interests array with nearbyUser's arrays
         var compatibleNearbyUsers = [];
         for(nearby in nearbyUsers) {
-          if (checkMatch(source.gender, nearby.gender) &&
-          checkMatch(source.interests, nearby.interests) ||
-          checkMatch(source.music, nearby.music) ||
-          checkMatch(source.movies, nearby.movies))
+          if (checkMatch(newUser.gender, nearby.gender) &&
+          checkMatch(newUser.interests, nearby.interests) ||
+          checkMatch(newUser.music, nearby.music) ||
+          checkMatch(newUser.movies, nearby.movies))
           {
             // MATCH!
             compatibleNearbyUsers.push(nearby);
-
           }
           else {
 
           }
         }
+        console.log("compatible [" , newUser.name , "," , nearby.name, "]: ", compatibleNearbyUsers);
         res.json({"users": compatibleNearbyUsers});
       });
     } else {
@@ -221,7 +241,7 @@ router.post('/update', function(req, res) {
           res.json({"message": err});
         }
         res.json({"user": user});
-      })
+      });
     }
   });
 
