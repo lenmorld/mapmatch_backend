@@ -46,6 +46,10 @@ function checkMatch(arr1, arr2) {
 }
 
 router.post('/', function(req, res) {
+
+  console.log("req: ", req.body);
+
+
   // get user looking for
   var interests = req.body.interests;
   var music = req.body.music;
